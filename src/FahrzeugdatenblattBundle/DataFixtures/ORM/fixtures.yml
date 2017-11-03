@@ -1,0 +1,15 @@
+FahrzeugdatenblattBundle\Entity\Fahrzeugdatenblatt:
+    fahrzeugdatenblatt_{1..10}:
+        fahrzeugMarke: <company()>
+        fahrzeugKategorie: <jobTitle()>
+        fahrzeugModell: <jobTitle()>
+        personenMax: <numberBetween(1, 200)>
+
+FahrzeugdatenblattBundle\Entity\Transferfahrten:
+    transferfahrten_{1..100}:
+        startDestination: <city()>
+        finishDestination: <city()>
+        duration: <numberBetween(1, 200)>
+        distance: <numberBetween(1, 9999)>
+        createdAt: <dateTimeBetween("-200 days", "now")>
+        fahrzeuge: '@fahrzeugdatenblatt_*'

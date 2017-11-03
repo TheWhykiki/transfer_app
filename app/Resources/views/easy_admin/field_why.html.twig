@@ -1,0 +1,5 @@
+{% if view == 'show' %}
+    {{ value|nl2br }}<i class="fa fa-key"></i>
+{% else %}
+    {{ value|easyadmin_truncate }}
+{% endif %}

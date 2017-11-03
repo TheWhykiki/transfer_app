@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lutschen!{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block body %}
+Hello World!<br>
+
+{% for item in ergebnis %}
+    {{ item.fahrzeugMarke }}
+{% endfor %}
+
+
+{% endblock %}
+

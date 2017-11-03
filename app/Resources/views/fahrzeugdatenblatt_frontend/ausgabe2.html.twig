@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lutschen!{% endblock %}
+
+
+
+
+{% block body %}
+    {% for helptext in help %}
+            {{ helptext }}
+    {%  endfor  %}
+    {% if name != 'Joerg' %}
+        Hallo {{ name | json_encode() }}
+    {% else %}
+        kacken
+    {% endif %}
+<div id="js-wrapper">
+
+</div>
+<a href="{{ path('apiGetter', {'linker':'Oli'}) }}">Link</a>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.0.0/umd/react.production.min.js"></script>
+    <script type="text/javascript" src="{{ asset('js/notes.react.js') }}"></script>
+    <script type="text/babel">
+        ReactDOM.render(
+            <NoteSection />
+                document.getElementById('js-wrapper')
+        );
+    </script>
+{% endblock %}
+
