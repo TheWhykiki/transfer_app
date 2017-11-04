@@ -86,7 +86,7 @@ class FahrtenController extends Controller
 
 		// Normal action when calling the form, without post -> get
 
-		return $this->render('fahrzeugdatenblatt_frontend/transfer_neu.html.twig',[
+		return $this->render('admin_templates/transfer_neu.html.twig',[
 			'transferForm' => $form->createView()
 		]);
 	}
@@ -120,7 +120,7 @@ class FahrtenController extends Controller
 
 		// Normal action when calling the form, without post -> get
 
-		return $this->render('fahrzeugdatenblatt_frontend/transfer_neu.html.twig',[
+		return $this->render('admin_templates/transfer_editieren.html.twig',[
 			'transferForm' => $form->createView()
 		]);
 	}
@@ -182,7 +182,7 @@ class FahrtenController extends Controller
 			$cache->save($cacheKey, $paginatedTransfers, 3600);
 		}
 
-		return $this->render('fahrzeugdatenblatt_frontend/ausgabe_alle_fahrten.html.twig',[
+		return $this->render('admin_templates/ausgabe_alle_fahrten.html.twig',[
 			'transferfahrten' => $paginatedTransfers
 		]);
 	}
@@ -245,7 +245,7 @@ class FahrtenController extends Controller
 
 		//dump($paginatedTransfers);die;
 
-		return $this->render('fahrzeugdatenblatt_frontend/ausgabe_alle_fahrten.html.twig',[
+		return $this->render('admin_templates/ausgabe_alle_fahrten.html.twig',[
 			'transferfahrten' => $paginatedTransfers,
 			'alleAutos' => $cars,
 			'alleTransfers' => $allTransfers,

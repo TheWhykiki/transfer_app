@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lutschen!{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block body %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">Transferfahrt erstellen (Sperrfahrt)</div>
+                <div class="panel-body">
+                    <div class="col-md-6">
+                        {{ include('admin_templates/transfer_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.col-->
+    </div> <!-- /.row -->
+
+{% endblock %}
+

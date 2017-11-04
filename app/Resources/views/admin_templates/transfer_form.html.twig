@@ -1,0 +1,13 @@
+{{ form_start(transferForm) }}
+{{ form_errors(transferForm) }}
+<div class="form-group">
+    <label>
+        {{ form_label(transferForm.startDestination) }}
+    </label>
+    {{ form_widget(transferForm.startDestination)}}
+    {{ form_errors(transferForm.startDestination)}}
+</div>
+{{ form_widget(transferForm) }}
+<button type="submit" class="btn btn-primary" formnovalidate>Save</button>
+{{ form_end(transferForm) }}
+{# {{ form_end(transferForm, {'render_rest': false}) }} #}

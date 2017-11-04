@@ -24,23 +24,42 @@ class MenuBuilder implements ContainerAwareInterface
 			[
 				'routename' => 'Startseite',
 				'route' => 'homepage',
+				'attributes' => [
+					'class' => 'mainMenuLink',
+					'id' => 'mainMenuID'
+				]
 			],
 			[
 				'routename' => 'Neue Fahrt anlegen',
 				'route' => 'neue_fahrt',
+				'attributes' => [
+					'class' => 'mainMenuLink',
+					'id' => 'mainMenuID'
+				]
 			],
 			[
 				'routename' => 'Fahrten anzeigen',
 				'route' => 'alle_fahrten_uncached',
+				'attributes' => [
+					'class' => 'mainMenuLink',
+					'id' => 'mainMenuID'
+				]
 			],
 		];
 		//dump($testMenus);die;
 
 		foreach($menuItems as $menuItem){
 			$routename = $menuItem['routename'];
+			$attributes = $menuItem['attributes'];
 			$route = $menuItem['route'];
-			$menu->addChild($routename, array('route' => $route));
+			$menu->addChild($routename, ['route' => $route, 'attributes' => $attributes]);
 		}
+
+		$menu['Fahrten anzeigen']
+			->addChild('Profile', array(
+				'uri' => '#'
+			))
+			->setAttribute('divider_append', true);
 
 		return $menu;
 	}
