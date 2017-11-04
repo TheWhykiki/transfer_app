@@ -1,11 +1,15 @@
-Symfony Standard Edition
+Whykiki Transfer App
 ========================
 
-Welcome to the Symfony Standard Edition - a fully-functional Symfony
-application that you can use as the skeleton for your new applications.
+- installed Bundles:
 
-For details on how to download and get started with Symfony, see the
-[Installation][1] chapter of the Symfony Documentation.
+KnpPaginatorBundle
+
+Followed Tuts on:
+
+https://knpuniversity.com/tracks/symfony
+
+Symfony Angaben
 
 What's inside?
 --------------
