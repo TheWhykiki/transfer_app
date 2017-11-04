@@ -26,7 +26,11 @@ class MenuBuilder implements ContainerAwareInterface
 				'route' => 'homepage',
 			],
 			[
-				'routename' => 'Autos anzeigen',
+				'routename' => 'Neue Fahrt anlegen',
+				'route' => 'neue_fahrt',
+			],
+			[
+				'routename' => 'Fahrten anzeigen',
 				'route' => 'alle_fahrten_uncached',
 			],
 		];

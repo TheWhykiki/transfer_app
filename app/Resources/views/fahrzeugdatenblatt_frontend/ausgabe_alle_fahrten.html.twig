@@ -8,7 +8,11 @@
 
 
 {% block body %}
-qdwdqwdwqdwq
+    {% for msg in app.session.flashBag.get('success') %}
+        <div class="alert alert-success">
+            {{ msg }}
+        </div>
+    {%  endfor  %}
     <!-- Quick Stats -->
     <div class="row text-center">
         <div class="col-sm-6 col-lg-3">
@@ -22,17 +26,17 @@ qdwdqwdwqdwq
         <div class="col-sm-6 col-lg-3">
             <a href="javascript:void(0)" class="widget widget-hover-effect2">
                 <div class="widget-extra themed-background-dark">
-                    <h4 class="widget-content-light"><strong>Orders</strong> Today</h4>
+                    <h4 class="widget-content-light"><strong>Alle</strong> Transferfahrten</h4>
                 </div>
-                <div class="widget-extra-full"><span class="h2 themed-color-dark animation-expandOpen">120</span></div>
+                <div class="widget-extra-full"><span class="h2 themed-color-dark animation-expandOpen">{{ alleTransfers }}</span></div>
             </a>
         </div>
         <div class="col-sm-6 col-lg-3">
             <a href="javascript:void(0)" class="widget widget-hover-effect2">
                 <div class="widget-extra themed-background-dark">
-                    <h4 class="widget-content-light"><strong>Orders</strong> This Month</h4>
+                    <h4 class="widget-content-light"><strong>Alle<Fahrten/strong> diesen Monat</h4>
                 </div>
-                <div class="widget-extra-full"><span class="h2 themed-color-dark animation-expandOpen">3.200</span></div>
+                <div class="widget-extra-full"><span class="h2 themed-color-dark animation-expandOpen">{{ alleTransfersDiesenMonat }}</span></div>
             </a>
         </div>
         <div class="col-sm-6 col-lg-3">
@@ -61,10 +65,11 @@ qdwdqwdwqdwq
             <thead>
             <tr>
                 <th class="text-center" style="width: 100px;">{{ knp_pagination_sortable(transferfahrten, 'Id', 'tf.id') }}</th>
-                <th class="visible-lg">{{ knp_pagination_sortable(transferfahrten, 'startDestination', 'tf.start_destination') }}</th>
+                <th class="visible-lg">{{ knp_pagination_sortable(transferfahrten, 'startDestination', 'tf.startDestination') }}</th>
                 <th class="text-center visible-lg">Ziel</th>
-                <th class="hidden-xs">Dauer</th>
-                <th class="text-right hidden-xs">Distanz</th>
+                <th class="hidden-xs">{{ knp_pagination_sortable(transferfahrten, 'duration', 'tf.duration') }}</th>
+                <th class="text-right hidden-xs">{{ knp_pagination_sortable(transferfahrten, 'distance', 'tf.distance') }}</th>
+                <th class="text-right hidden-xs">{{ knp_pagination_sortable(transferfahrten, 'createdAt', 'tf.createdAt') }}</th>
                 <th class="text-center">Action</th>
             </tr>
             </thead>
@@ -76,9 +81,10 @@ qdwdqwdwqdwq
                     <td class="visible-lg"><a href="#">{{ fahrt.finishDestination }}</a></td>
                     <td class="visible-lg"><a href="#">{{ fahrt.duration }}</a></td>
                     <td class="visible-lg"><a href="#">{{ fahrt.distance }}</a></td>
+                    <td class="visible-lg"><a href="#">{{ fahrt.createdAt|date('d.m.Y') }}</a></td>
                     <td class="text-center">
                         <div class="btn-group btn-group-xs">
-                            <a href="page_ecom_order_view.php" data-toggle="tooltip" title="View" class="btn btn-default"><i class="fa fa-eye"></i></a>
+                            <a href="{{ path('fahrt_editieren', {'id': fahrt.id}) }}" data-toggle="tooltip" title="View" class="btn btn-default"><i class="fa fa-eye"></i></a>
                             <a href="javascript:void(0)" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>
                         </div>
                     </td>

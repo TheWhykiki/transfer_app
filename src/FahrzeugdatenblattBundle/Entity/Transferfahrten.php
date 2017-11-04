@@ -7,6 +7,7 @@
  */
 
 namespace FahrzeugdatenblattBundle\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,8 +29,9 @@ class Transferfahrten
 	/**
 	 * Setting mapping manyToOne Fahrzeuge->Transferfahrten
 	 *
+	 * @Assert\NotBlank()
 	 * @ORM\ManyToOne(targetEntity="FahrzeugdatenblattBundle\Entity\Fahrzeugdatenblatt")
-	 * @ORM\JoinColumn(nullable=false)
+	 * @ORM\JoinColumn(nullable=true)
 	 */
 
 	private $fahrzeuge;
@@ -53,21 +55,25 @@ class Transferfahrten
 
 
 	/**
+	 * @Assert\NotBlank()
 	 * @ORM\Column(type="string")
 	 */
 	private $startDestination;
 
 	/**
+	 * @Assert\NotBlank()
 	 * @ORM\Column(type="string")
 	 */
 	private $finishDestination;
 
 	/**
+	 * @Assert\Type(type="integer")
 	 * @ORM\Column(type="integer")
 	 */
 	private $duration;
 
 	/**
+	 * @Assert\NotBlank()
 	 * @ORM\Column(type="integer")
 	 */
 	private $distance;
@@ -164,5 +170,29 @@ class Transferfahrten
 	 * @ORM\Column(type="datetime", nullable=true)
 	 */
 	private $createdAt;
+
+	/**
+	 * @Assert\NotBlank()
+	 * @ORM\Column(type="boolean")
+	 */
+	private $isPublished;
+
+	/**
+	 * @return mixed
+	 */
+	public function getisPublished()
+	{
+		return $this->isPublished;
+	}
+
+	/**
+	 * @param mixed $isPublished
+	 */
+	public function setIsPublished($isPublished)
+	{
+		$this->isPublished = $isPublished;
+	}
+
+
 
 }

@@ -10,7 +10,36 @@ namespace FahrzeugdatenblattBundle\Repository;
  */
 class TransferfahrtenRepository extends \Doctrine\ORM\EntityRepository
 {
+	/**
+	 * @return mixed
+	 */
+	public function countAllTransfers()
+	{
+		$allTransfers = $this->createQueryBuilder('transferfahrten')
+			->getQuery()
+			->getArrayResult();
+		$counted = count($allTransfers);
+		return $counted;
+	}
 
+	/**
+	 * @return mixed
+	 */
+	public function countAllTransfersThisMonth()
+	{
+		$date = new \DateTime();
+		$date->modify('-30 days');
+
+		$allTransfersThisMonth = $this
+			->createQueryBuilder('transferfahrten')
+			->andWhere('transferfahrten.createdAt > :date')
+			->setParameter(':date', $date)
+			->getQuery()
+			->execute();
+
+		$counted = count($allTransfersThisMonth);
+		return $counted;
+	}
 }
 
 

@@ -18,8 +18,13 @@ use Symfony\Component\HttpFoundation\Response;
 class FahrtenController extends Controller
 {
 
+	/************************************************************************************************************************
+	 *
+	 * Testclass generating transfers
+	 *
+	 ***********************************************************************************************************************/
+
 	/**
-	 * Testfunction for manually generating transfers
 	 *
 	 * @Route("/neue_fahrt_generator", name="neue_fahrt_generator")
 	 */
@@ -43,22 +48,88 @@ class FahrtenController extends Controller
 		return new Response('Fahrt erstellt');
 	}
 
+	/************************************************************************************************************************
+	 *
+	 * Neue Fahrt erstellen with Form
+	 *
+	 ***********************************************************************************************************************/
+
 	/**
 	 * @Route("/neue_fahrt", name="neue_fahrt")
 	 */
 	public function fahrtErstellenAction(Request $request)
 	{
+
+		// Create form based on Form->TransferfahrtenForm
+		// form data is binded to TRansferfahrten Entity
+		// see TransferfahrtenForm.php line25
+
 		$form = $this->createForm(TransferfahrtenForm::class);
+
+		// Handle request of the data
+		// works only on post
+
 		$form->handleRequest($request);
 
+
+		// Action when form is submittend and valid
+
 		if($form->isSubmitted() && $form->isValid()){
-			dump($form->getData()); die;
+			$transferFormData = $form->getData();
+			$em =   $this->getDoctrine()->getManager();
+					$em->persist($transferFormData);
+					$em->flush();
+
+			$this->addFlash('success', 'Transferfahrt erstellt!');
+			return $this->redirectToRoute('alle_fahrten_uncached');
 		}
+
+		// Normal action when calling the form, without post -> get
 
 		return $this->render('fahrzeugdatenblatt_frontend/transfer_neu.html.twig',[
 			'transferForm' => $form->createView()
 		]);
 	}
+
+	/************************************************************************************************************************
+	 *
+	 * Fahrt editieren
+	 *
+	 ***********************************************************************************************************************/
+
+	/**
+	 * @Route("/fahrt_editieren/{id}/editieren", name="fahrt_editieren")
+	 */
+	public function editTransferAction(Request $request, Transferfahrten $transferfahrten)
+	{
+
+		$form = $this->createForm(TransferfahrtenForm::class, $transferfahrten);
+		$form->handleRequest($request);
+
+		// Action when form is submittend and valid
+
+		if($form->isSubmitted() && $form->isValid()){
+			$transferFormData = $form->getData();
+			$em =   $this->getDoctrine()->getManager();
+			$em->persist($transferFormData);
+			$em->flush();
+
+			$this->addFlash('success', 'Transferfahrt editiert!');
+			return $this->redirectToRoute('alle_fahrten_uncached');
+		}
+
+		// Normal action when calling the form, without post -> get
+
+		return $this->render('fahrzeugdatenblatt_frontend/transfer_neu.html.twig',[
+			'transferForm' => $form->createView()
+		]);
+	}
+
+	/************************************************************************************************************************
+	 *
+	 * Alle Fahrten cached
+	 *
+	 ***********************************************************************************************************************/
 
 	/**
 	 * @Route("/alle_fahrten_cached", name="alle_fahrten_cached")
@@ -116,16 +187,36 @@ class FahrtenController extends Controller
 		]);
 	}
 
-
+	/************************************************************************************************************************
+	 *
+	 * Alle Fahrten uncached
+	 *
+	 ***********************************************************************************************************************/
 
 	/**
 	 * @Route("/alle_fahrten_uncached", name="alle_fahrten_uncached")
 	 */
 	public function fahrtenAnzeigenUncachedAction(Request $request)
 	{
+
+		// Count all cars
+
 		$em = $this->getDoctrine()->getManager();
 		$cars = $em->getRepository('FahrzeugdatenblattBundle:Fahrzeugdatenblatt')
 			->countAllCars();
+
+		// Count all transfers
+
+		$em = $this->getDoctrine()->getManager();
+		$allTransfers = $em->getRepository('FahrzeugdatenblattBundle:Transferfahrten')
+			->countAllTransfers();
+
+		// Count transfers this month
+
+		$em = $this->getDoctrine()->getManager();
+		$allTransfersThisMonth = $em->getRepository('FahrzeugdatenblattBundle:Transferfahrten')
+			->countAllTransfersThisMonth();
+		//dump($allTransfersThisMonth); die;
 
 		//* $testkiki */$testkiki = new Testfunction(
 		//	$this->get('templating')->render('fahrzeugdatenblatt_frontend/eingabe.html.twig')
@@ -156,7 +247,9 @@ class FahrtenController extends Controller
 
 		return $this->render('fahrzeugdatenblatt_frontend/ausgabe_alle_fahrten.html.twig',[
 			'transferfahrten' => $paginatedTransfers,
-			'alleAutos' => $cars
+			'alleAutos' => $cars,
+			'alleTransfers' => $allTransfers,
+			'alleTransfersDiesenMonat' => $allTransfersThisMonth
 		]);
 	}
 }

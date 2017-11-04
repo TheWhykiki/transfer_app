@@ -33,4 +33,14 @@ class FahrzeugdatenblattRepository extends \Doctrine\ORM\EntityRepository
 		$counted = count($alleKarren);
 		return $counted;
 	}
+
+	/**
+	 * @return mixed
+	 */
+	public function sortCarsAlphabetical()
+	{
+		$carsAlphabetical = $this->createQueryBuilder('fahrzeugdatenblatt')
+							->orderBy('fahrzeugdatenblatt.fahrzeugMarke', 'ASC');
+		return $carsAlphabetical;
+	}
 }
