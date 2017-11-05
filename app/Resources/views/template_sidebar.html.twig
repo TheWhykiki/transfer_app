@@ -9,38 +9,19 @@
                 <i class="gi gi-flash"></i><span class="sidebar-nav-mini-hide"><strong>Pro</strong>UI</span>
             </a>
             <!-- END Brand -->
-            {{ knp_menu_render('AppBundle:MenuBuilder:mainMenu') }}
+
             <!-- Sidebar Navigation -->
             <ul class="sidebar-nav">
 
-                <li>
+                <!-- <li>
                     <a href="index.php"><i class="gi gi-stopwatch sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Dashboard</span></a>
                 </li>
                 <li>
                     <a href="index2.php" class=" active"><i class="gi gi-leaf sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Dashboard 2</span></a>
-                </li>
+                </li> -->
                 <li>
-                    <a href="#" class="sidebar-nav-menu open"><i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="gi gi-shopping_cart sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">eCommerce</span></a>
-                    <ul style="display: block;">
-                        <li>
-                            <a href="page_ecom_dashboard.php">Dashboard</a>
-                        </li>
-                        <li>
-                            <a href="page_ecom_orders.php">Orders</a>
-                        </li>
-                        <li>
-                            <a href="page_ecom_order_view.php">Order View</a>
-                        </li>
-                        <li>
-                            <a href="page_ecom_products.php">Products</a>
-                        </li>
-                        <li>
-                            <a href="page_ecom_product_edit.php">Product Edit</a>
-                        </li>
-                        <li>
-                            <a href="page_ecom_customer_view.php">Customer View</a>
-                        </li>
-                    </ul>
+                    <a href="#" class="sidebar-nav-menu open"><i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="gi gi-shopping_cart sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Verwaltung</span></a>
+                    {{ knp_menu_render('AppBundle:MenuBuilder:mainMenu') }}
                 </li>
                 <li class="sidebar-header">
                     <span class="sidebar-header-options clearfix"><a href="javascript:void(0)" data-toggle="tooltip" title="" data-original-title="Quick Settings"><i class="gi gi-settings"></i></a><a href="javascript:void(0)" data-toggle="tooltip" title="" data-original-title="Create the most amazing pages with the widget kit!"><i class="gi gi-lightbulb"></i></a></span>

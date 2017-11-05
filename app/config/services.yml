@@ -35,3 +35,7 @@ services:
     #         $someArgument: 'some_value'
     whykiki.fahrzeugcounter:
       class: FahrzeugdatenblattBundle\Testfunctions\Testfunction
+
+    app.security_login:
+      class: AppBundle\Security\LoginFormAuthenticator
+      autowire: true

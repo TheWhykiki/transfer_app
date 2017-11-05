@@ -15,38 +15,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class FahrzeugController extends Controller
 {
-
-
-    /**
-     * Route zum Spielen für den Kiki
-     *
-     * @Route("/tester", name="testkiki")
-     *
-     */
-    public function indexAction(Request $request)
-    {
-    	//var_dump($name);
-	    //return $this->render('FahrzeugdatenblattBundle:Default:index.html.twig');
-
-		$ergebnis = $this->getDoctrine()->getRepository('FahrzeugdatenblattBundle:Fahrzeugdatenblatt')->findAll();
-		//var_dump$ergebnis);
-	    //$marke = $_GET['marke'];
-		if(!empty($marke)){
-			echo $marke;
-		}
-		else{
-			echo "Willi22";
-		}
-
-	    return $this->render('fahrzeugdatenblatt_frontend/ausgabe.html.twig', [
-		    'ergebnis' => $ergebnis,
-		    'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-	    ]);
-    }
-
+	/************************************************************************************************************************
+	 *
+	 * Neues Auto erstellen
+	 *
+	 ***********************************************************************************************************************/
 
 	/**
-	 * Route zum Erstellen neuer Autos in der Fahrzeugliste
 	 * @Route("/neu_auto", name="neues_auto")
 	 */
 	public function autoErstellenAction(Request $request)
@@ -58,19 +33,35 @@ class FahrzeugController extends Controller
 			dump($form->getData()); die;
 		}
 
-		return $this->render('fahrzeugdatenblatt_frontend/auto_neu.html.twig',[
+		return $this->render('admin_templates/auto_neu.html.twig',[
 			'autoForm' => $form->createView()
 		]);
 	}
 
+	/************************************************************************************************************************
+	 *
+	 * Auto Details
+	 *
+	 ***********************************************************************************************************************/
 	/**
-	 * @Route("/list_cars_fahrten/{id}/fahrten", name="list_fahrten_car")
+	 * @Route("/car_details/{id}", name="car_detail_view")
 	 */
 
 	public function listFahrtenCarAction(Fahrzeugdatenblatt $fahrzeugdatenblatt){
 		$fahrten = $fahrzeugdatenblatt->getTransferfahrten();
-		dump($fahrten);die;
+		$automarke = $fahrzeugdatenblatt->getFahrzeugMarke();
+
+		return $this->render('admin_templates/car_detail_view.html.twig',[
+			'transferfahrten' => $fahrten,
+			'fahrzeugmarke' => $automarke
+		]);
 	}
+
+	/************************************************************************************************************************
+	 *
+	 * Alle Autos anzeigen
+	 *
+	 ***********************************************************************************************************************/
 
 	/**
 	 * @Route("/list_cars", name="list_all_cars")
@@ -82,8 +73,9 @@ class FahrzeugController extends Controller
 		$cars = $em->getRepository('FahrzeugdatenblattBundle:Fahrzeugdatenblatt')
 					->findAll();
 
-
-		dump($cars);die;
+		return $this->render('admin_templates/car_list_view.html.twig',[
+			'alleAutos' => $cars,
+		]);
 	}
 
 	/**

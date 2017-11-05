@@ -31,7 +31,7 @@ class UserSecurityController extends Controller
 		$lastUsername = $authUtils->getLastUsername();
 
 		$form = $this->createForm(UserLogin::class, [
-			'username' => $lastUsername
+			'_username' => $lastUsername
 		]);
 
 		return $this->render('security/login.html.twig', array(

@@ -70,6 +70,7 @@
                 <th class="hidden-xs">{{ knp_pagination_sortable(transferfahrten, 'duration', 'tf.duration') }}</th>
                 <th class="text-right hidden-xs">{{ knp_pagination_sortable(transferfahrten, 'distance', 'tf.distance') }}</th>
                 <th class="text-right hidden-xs">{{ knp_pagination_sortable(transferfahrten, 'createdAt', 'tf.createdAt') }}</th>
+                <th class="text-right hidden-xs">{{ knp_pagination_sortable(transferfahrten, 'fahrzeuge', 'car.id') }}</th>
                 <th class="text-center">Action</th>
             </tr>
             </thead>
@@ -82,6 +83,7 @@
                     <td class="visible-lg"><a href="#">{{ fahrt.duration }}</a></td>
                     <td class="visible-lg"><a href="#">{{ fahrt.distance }}</a></td>
                     <td class="visible-lg"><a href="#">{{ fahrt.createdAt|date('d.m.Y') }}</a></td>
+                    <td class="visible-lg"><a href="{{ path('car_detail_view', {'id': fahrt.fahrzeuge.id}) }}">{{ fahrt.fahrzeuge }}</a></td>
                     <td class="text-center">
                         <div class="btn-group btn-group-xs">
                             <a href="{{ path('fahrt_editieren', {'id': fahrt.id}) }}" data-toggle="tooltip" title="View" class="btn btn-default"><i class="fa fa-eye"></i></a>

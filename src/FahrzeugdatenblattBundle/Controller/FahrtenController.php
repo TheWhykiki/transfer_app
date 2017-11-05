@@ -226,7 +226,7 @@ class FahrtenController extends Controller
 		// so only the needed posts are queried
 
 		$em = $this->getDoctrine()->getManager();
-		$dql = "SELECT tf from FahrzeugdatenblattBundle:Transferfahrten tf";
+		$dql = "SELECT tf from FahrzeugdatenblattBundle:Transferfahrten tf JOIN tf.fahrzeuge car";
 		$query = $em->createQuery($dql);
 
 		/**

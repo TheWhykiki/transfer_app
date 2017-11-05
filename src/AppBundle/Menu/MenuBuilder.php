@@ -53,6 +53,22 @@ class MenuBuilder implements ContainerAwareInterface
 					'id' => 'mainMenuID'
 				]
 			],
+			[
+				'routename' => 'Alle Autos',
+				'route' => 'list_all_cars',
+				'attributes' => [
+					'class' => 'mainMenuLink',
+					'id' => 'mainMenuID'
+				]
+			],
+			[
+				'routename' => 'Neues Auto',
+				'route' => 'neues_auto',
+				'attributes' => [
+					'class' => 'mainMenuLink',
+					'id' => 'mainMenuID'
+				]
+			],
 		];
 		//dump($testMenus);die;
 
