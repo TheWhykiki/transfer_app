@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Car List View{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block body %}
+    {% for msg in app.session.flashBag.get('success') %}
+        <div class="alert alert-success">
+            {{ msg }}
+        </div>
+    {%  endfor  %}
+
+    <!-- All Orders Block -->
+    <div class="block full">
+        <!-- All Orders Title -->
+        <div class="block-title">
+            <div class="block-options pull-right">
+                <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default" data-toggle="tooltip" title="Settings"><i class="fa fa-cog"></i></a>
+            </div>
+            <h2><strong>Alle Autos</strong></h2>
+        </div>
+        <!-- END All Orders Title -->
+
+        <!-- All Orders Content -->
+        <table id="ecom-orders" class="table table-bordered table-striped table-vcenter">
+            <thead>
+            <tr>
+                <th class="text-center" style="width: 100px;">Fahrzeugmarke</th>
+                <th class="visible-lg">Fahrzeugmodell</th>
+                <th class="visible-lg">Fahrzeugkategorie</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for auto in alleAutos %}
+                <tr>
+                    <td class="visible-lg"><a href="#">{{ auto.fahrzeugMarke }}</a></td>
+                    <td class="visible-lg"><a href="#">{{ auto.fahrzeugModell }}</a></td>
+                    <td class="visible-lg"><a href="#">{{ auto.fahrzeugKategorie }}</a></td>
+                    <td class="text-center">
+                        <div class="btn-group btn-group-xs">
+                            <a href="{{ path('car_detail_view', {'id': auto.id}) }}" data-toggle="tooltip" title="View" class="btn btn-default"><i class="fa fa-eye"></i></a>
+                            <a href="javascript:void(0)" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+
+            <?php } ?>
+            </tbody>
+        </table>
+        <!-- END All Orders Content -->
+    </div>
+    <!-- END All Orders Block -->
+
+{% endblock %}
