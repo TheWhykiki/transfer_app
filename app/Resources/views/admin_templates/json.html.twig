@@ -1,0 +1,9 @@
+
+
+{% block body %}
+    {% for msg in json %}
+        <div class="alert alert-success">
+            {{ msg.duration }}
+        </div>
+    {%  endfor  %}
+{% endblock %}
