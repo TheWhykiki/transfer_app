@@ -64,6 +64,15 @@ class FahrzeugController extends Controller
 	}
 
 	/**
+	 * @Route("/list_cars_fahrten/{id}/fahrten", name="list_fahrten_car")
+	 */
+
+	public function listFahrtenCarAction(Fahrzeugdatenblatt $fahrzeugdatenblatt){
+		$fahrten = $fahrzeugdatenblatt->getTransferfahrten();
+		dump($fahrten);die;
+	}
+
+	/**
 	 * @Route("/list_cars", name="list_all_cars")
 	 */
 
@@ -72,6 +81,8 @@ class FahrzeugController extends Controller
 		$em = $this->getDoctrine()->getManager();
 		$cars = $em->getRepository('FahrzeugdatenblattBundle:Fahrzeugdatenblatt')
 					->findAll();
+
+
 		dump($cars);die;
 	}
 

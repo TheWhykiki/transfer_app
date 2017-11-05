@@ -1,28 +1,21 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Lutschen!{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-{% endblock %}
-
+{%  extends 'admin_templates/transfer_formHeader.html.twig' %}
 
 {% block body %}
 
-
-
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">Form editieren</div>
-                <div class="panel-body">
-                    <div class="col-md-6">
-                        {{ include('admin_templates/transfer_form.html.twig') }}
-                    </div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">Form editieren</div>
+            <div class="panel-body">
+                <div class="col-md-6">
+                    {{ include('admin_templates/transfer_form.html.twig', {
+                        'buttonText':'Editierte Fahrt speichern'
+                    }) }}
                 </div>
             </div>
-        </div><!-- /.col-->
-    </div> <!-- /.row -->
+        </div>
+    </div><!-- /.col-->
+</div> <!-- /.row -->
 
 {% endblock %}
 

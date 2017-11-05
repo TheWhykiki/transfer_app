@@ -8,6 +8,6 @@
     {{ form_errors(transferForm.startDestination)}}
 </div>
 {{ form_widget(transferForm) }}
-<button type="submit" class="btn btn-primary" formnovalidate>Save</button>
+<button type="submit" class="btn btn-primary" formnovalidate>{{ buttonText }}</button>
 {{ form_end(transferForm) }}
 {# {{ form_end(transferForm, {'render_rest': false}) }} #}

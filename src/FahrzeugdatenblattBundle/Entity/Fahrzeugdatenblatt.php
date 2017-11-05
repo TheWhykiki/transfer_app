@@ -2,6 +2,7 @@
 
 namespace FahrzeugdatenblattBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,7 +23,18 @@ class Fahrzeugdatenblatt
 
     private $id;
 
-    /**
+
+	/**
+	 * @ORM\OneToMany(targetEntity="FahrzeugdatenblattBundle\Entity\Transferfahrten", mappedBy="fahrzeuge")
+	 */
+	private $transferfahrten;
+
+	public function __construct()
+	{
+		$this->transferfahrten = new ArrayCollection();
+	}
+
+	/**
      * @var string
      *
      * @ORM\Column(name="fahrzeug_marke", type="string", length=255)
@@ -342,6 +354,16 @@ class Fahrzeugdatenblatt
     {
         return $this->zusatzinfos;
     }
+
+	/**
+	 * @return mixed
+	 */
+	public function getTransferfahrten()
+	{
+		return $this->transferfahrten;
+	}
+
+
 
 	/**
 	 * Setting up string function for getting

@@ -1,0 +1,42 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Whykiki2013
+ * Date: 05.11.2017
+ * Time: 01:11
+ */
+
+namespace AppBundle\Controller;
+
+
+use AppBundle\Form\UserLogin;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\HttpFoundation\Response;
+
+class UserSecurityController extends Controller
+{
+	/**
+	 * @Route("login", name="user_login")
+	 */
+
+	public function userLoginAction(Request $request, AuthenticationUtils $authUtils)
+	{
+		// get the login error if there is one
+		$error = $authUtils->getLastAuthenticationError();
+
+		// last username entered by the user
+		$lastUsername = $authUtils->getLastUsername();
+
+		$form = $this->createForm(UserLogin::class, [
+			'username' => $lastUsername
+		]);
+
+		return $this->render('security/login.html.twig', array(
+			'loginForm' => $form->createView(),
+			'error'         => $error,
+		));
+	}
+}

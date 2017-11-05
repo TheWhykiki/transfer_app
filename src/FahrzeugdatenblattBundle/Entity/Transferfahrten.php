@@ -30,7 +30,7 @@ class Transferfahrten
 	 * Setting mapping manyToOne Fahrzeuge->Transferfahrten
 	 *
 	 * @Assert\NotBlank()
-	 * @ORM\ManyToOne(targetEntity="FahrzeugdatenblattBundle\Entity\Fahrzeugdatenblatt")
+	 * @ORM\ManyToOne(targetEntity="FahrzeugdatenblattBundle\Entity\Fahrzeugdatenblatt", inversedBy="transferfahrten")
 	 * @ORM\JoinColumn(nullable=true)
 	 */
 
