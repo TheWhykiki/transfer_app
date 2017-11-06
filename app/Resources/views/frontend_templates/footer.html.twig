@@ -1,0 +1,101 @@
+{% block javascripts %}
+    <script src="{{ asset('js/vendor/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/vendor/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/picker.js') }}"></script>
+    <script src="{{ asset('js/picker.time.js') }}"></script>
+    <script src="{{ asset('js/picker.date.js') }}"></script>
+    <script>
+        $( document ).ready(function() {
+
+
+            $('.timepicker').pickatime({
+                format: 'HH:i U!hr',
+                formatSubmit: 'HH:i',
+                interval: 15,
+                hiddenSuffix: 'hiddenTime_submit',
+            });
+            $('.datepicker').pickadate(
+                {
+                    // Strings and translations
+                    monthsFull: [ 'Januar', 'February', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember' ],
+                    monthsShort: [ 'Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez' ],
+                    weekdaysFull: [ 'Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag' ],
+                    weekdaysShort: [ 'Son', 'Mon', 'Die', 'Mi', 'Do', 'Fr', 'Sa' ],
+                    selectMonths: false,
+                    selectYears: false,
+                    format: 'd.mmmm yyyy',
+                    formatSubmit: 'yyyy-mm-dd',
+                    hiddenSuffix: 'hiddenDate_submit',
+                }
+            );
+
+            $("#notSend").submit(function(e){
+                var submittedDate = $('input[name="hiddenDate_submit"]').attr('value');
+                var submittedTime = $('input[name="hiddenTime_submit"]').attr('value');
+                $('#fahrzeugdatenblatt_bundle_anfrage_form_createdAt').val(submittedDate + ' ' + submittedTime);
+
+                var name = $('#fahrzeugdatenblatt_bundle_anfrage_form_createdAt').val();
+                $.ajax({
+                    url: "json_cars_filtered",
+                    type: "POST",
+                    data: { name: name },
+                    dataType:"JSON",
+                    success: function (data) {
+                        $.each( data, function( key, value ) {
+                            //alert( key + ": " + data[key].marke );
+                            $('#ergebnis').html('<label>' + data[key].marke + '</label><p>'+  data[key].modell + '</p>')
+                        });
+                        //$('#ergebnis').append('<p>' + data + '</p>');
+                    },
+                    error: function () {
+                        alert('error');
+                    }
+                });
+
+                e.preventDefault();
+                console.log(submittedDate);
+                console.log(tester);
+            });
+
+
+            /*
+                $.ajax({
+                    url: "json_cars",
+                    type: "POST",
+                    dataType: 'json',
+                    data: { name: 'Ronaldo' },
+                    success: function (data) {
+                        console.log(data);
+                        $('#ergebnis').append('<p>Der Start lautet ' + data[0].start + 'und das Ziel ' + data[0].ziel + '</p>')
+
+                    },
+                    error: function () {
+                        alert('error');
+                    }
+                }); */
+
+
+
+            $('#fahrzeugdatenblatt_bundle_anfrage_form_createdAt').change(function(){
+                var name = $('#fahrzeugdatenblatt_bundle_anfrage_form_createdAt').val();
+                $.ajax({
+                    url: "json_cars_filtered",
+                    type: "POST",
+                    data: { name: name },
+                    dataType:"JSON",
+                    success: function (data) {
+                        $.each( data, function( key, value ) {
+                            //alert( key + ": " + data[key].marke );
+                            $('#ergebnis').html('<label>' + data[key].marke + '</label><p>'+  data[key].modell + '</p>')
+                        });
+                        //$('#ergebnis').append('<p>' + data + '</p>');
+                    },
+                    error: function () {
+                        alert('error');
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}
+

@@ -12,10 +12,10 @@ namespace FahrzeugdatenblattBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use FahrzeugdatenblattBundle\Entity\Transferfahrten;
 use FahrzeugdatenblattBundle\Form\TransferfahrtenForm;
-
+use FahrzeugdatenblattBundle\Form\AnfrageForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\BrowserKit\Request;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class APIController extends Controller
@@ -153,15 +153,15 @@ class APIController extends Controller
 	 * @Route("/json_cars_filtered")
 	 * @Method("POST")
 	 */
-	public function getJSONCarsFilteredAction(){
+	public function getJSONCarsFilteredAction(Request $request){
 
-		//$name = $_POST['name'];
-		//dump($name);die;
+
+		$datum = $request->request->get('name');
 		// Search database for all transfers
 
 		$em = $this->getDoctrine()->getManager();
 		$autos = $em->getRepository('FahrzeugdatenblattBundle:Fahrzeugdatenblatt')
-			->anfrageFilterCars();
+			->anfrageFilterCars($datum);
 
 		// Generate JSON Structure
 		$jsonData = [];
@@ -176,7 +176,7 @@ class APIController extends Controller
 
 			];
 		}
-		dump($jsonData);die;
+		//dump($jsonData);die;
 		return New Response(json_encode($jsonData));
 	}
 }

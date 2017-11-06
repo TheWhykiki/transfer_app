@@ -94,4 +94,27 @@ class FahrzeugController extends Controller
 		]);
 	}
 
+	/************************************************************************************************************************
+	 *
+	 * Fahrten Testcontroller
+	 *
+	 ***********************************************************************************************************************/
+
+	/**
+	 * @Route("/fahrten_testcontroller", name="fahrten_testcontroller")
+	 */
+	public function fahrtenTestAction(Request $request)
+	{
+
+		// Count all cars
+		$em = $this->getDoctrine()->getManager();
+		$cars = $em->getRepository('FahrzeugdatenblattBundle:Fahrzeugdatenblatt')
+			->anfrageFilterCars();
+
+
+		return $this->render('admin_templates/ausgabe_alle_fahrten_Alter.html.twig',[
+			'alleAutos' => $cars
+		]);
+	}
+
 }

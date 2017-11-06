@@ -2,7 +2,6 @@
 
 namespace FahrzeugdatenblattBundle\Repository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * FahrzeugdatenblattRepository
@@ -49,16 +48,16 @@ class FahrzeugdatenblattRepository extends \Doctrine\ORM\EntityRepository
 	/**
 	 * @return mixed
 	 */
-	public function anfrageFilterCars()
+	public function anfrageFilterCars($datum)
 	{
 
-		$date = '2017-11-04 00:00:00';
+		$transferdate = new \DateTime($datum);
 
-		$entity = $this
+		$cars = $this
 			->createQueryBuilder('fahrzeugdatenblatt')
 			->join('fahrzeugdatenblatt.transferfahrten', 'tf')
-			->where('tf.id != :date')
-			->setParameter('date', $date)
+			->where('tf.createdAt = :date')
+			->setParameter('date', $transferdate)
 			->getQuery()
 			->execute();
 
@@ -68,6 +67,7 @@ class FahrzeugdatenblattRepository extends \Doctrine\ORM\EntityRepository
 			->getQuery()
 			->execute(); */
 		//counted = count($alleKarren);
-		dump($entity);die;
+		//dump($cars);die;
+		return $cars;
 	}
 }

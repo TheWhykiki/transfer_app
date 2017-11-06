@@ -1,74 +1,26 @@
-<!DOCTYPE html>
-<!--[if IE 9]>         <html class="no-js lt-ie10" lang="en"> <![endif]-->
-<!--[if gt IE 9]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
-<head>
-    <meta charset="utf-8">
-
-    <title></title>
-
-    <meta name="description" content="<?php echo $template['description'] ?>">
-    <meta name="author" content="<?php echo $template['author'] ?>">
-    <meta name="robots" content="<?php echo $template['robots'] ?>">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
-
-</head>
-
+{% include 'frontend_templates/head.html.twig' %}
+{% block body %}
 <body>
 {{ form_start(anfrageForm) }}
 {{ form_widget(anfrageForm) }}
+
 {{ form_end(anfrageForm) }}
 
 <div id="ergebnis">
 
 </div>
+<form id="notSend">
+    <button type="submit">Send</button>
+    <input type="text" class="kiki">
+    <input type="text" class="timepicker">
+    <input type="text" class="datepicker">
+</form>
 
+
+{% include 'frontend_templates/footer.html.twig' %}
 </body>
 
 
 
-    <script src="{{ asset('js/vendor/jquery.min.js') }}"></script>
-    <script src="{{ asset('js/vendor/bootstrap.min.js') }}"></script>
-    <script>
-        $( document ).ready(function() {
-        /*
-            $.ajax({
-                url: "json_cars",
-                type: "POST",
-                dataType: 'json',
-                data: { name: 'Ronaldo' },
-                success: function (data) {
-                    console.log(data);
-                    $('#ergebnis').append('<p>Der Start lautet ' + data[0].start + 'und das Ziel ' + data[0].ziel + '</p>')
-
-                },
-                error: function () {
-                    alert('error');
-                }
-            }); */
-
-
-
-            $('#fahrzeugdatenblatt_bundle_anfrage_form_name').change(function(){
-                var name = $('#fahrzeugdatenblatt_bundle_anfrage_form_name').val();
-                $.ajax({
-                    url: "json_cars_filtered",
-                    type: "POST",
-                    data: { name: name },
-                    dataType:"JSON",
-                    success: function (data) {
-                        $.each( data, function( key, value ) {
-                            //alert( key + ": " + data[key].marke );
-                            $('#ergebnis').append('<label>' + data[key].marke + '</label><p>'+  data[key].modell + '</p>')
-                        });
-                        //$('#ergebnis').append('<p>' + data + '</p>');
-                    },
-                    error: function () {
-                        alert('error');
-                    }
-                });
-            });
-        });
-    </script>
-
-</body>
+{% endblock %}
 </html>
