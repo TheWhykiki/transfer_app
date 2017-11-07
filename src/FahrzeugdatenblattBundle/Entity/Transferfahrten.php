@@ -34,7 +34,7 @@ class Transferfahrten
 	 * @ORM\JoinColumn(nullable=true)
 	 */
 
-	private $fahrzeuge;
+	public $fahrzeuge;
 
 	/**
 	 * @return mixed
@@ -150,26 +150,50 @@ class Transferfahrten
 		return $this->id;
 	}
 
-	/**
-	 * @return mixed
-	 */
-	public function getCreatedAt()
-	{
-		return $this->createdAt;
-	}
 
 	/**
-	 * @param mixed $createdAt
-	 */
-	public function setCreatedAt($createdAt)
-	{
-		$this->createdAt = $createdAt;
-	}
+    * @ORM\Column(type="datetime", nullable=true)
+    */
+	private $startTime;
 
 	/**
 	 * @ORM\Column(type="datetime", nullable=true)
 	 */
-	private $createdAt;
+	private $endTime;
+
+	/**
+	 * @return mixed
+	 */
+	public function getStartTime()
+	{
+		return $this->startTime;
+	}
+
+	/**
+	 * @param mixed $startTime
+	 */
+	public function setStartTime($startTime)
+	{
+		$this->startTime = $startTime;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getEndTime()
+	{
+		return $this->endTime;
+	}
+
+	/**
+	 * @param mixed $endTime
+	 */
+	public function setEndTime($endTime)
+	{
+		$this->endTime = $endTime;
+	}
+
+
 
 	/**
 	 * @Assert\NotBlank()
