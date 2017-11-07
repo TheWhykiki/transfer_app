@@ -56,7 +56,7 @@ class FahrzeugdatenblattRepository extends \Doctrine\ORM\EntityRepository
 		$cars = $this
 			->createQueryBuilder('fahrzeugdatenblatt')
 			->join('fahrzeugdatenblatt.transferfahrten', 'tf')
-			->where('tf.createdAt = :date')
+			->where('tf.startTime = :date')
 			->setParameter('date', $transferdate)
 			->getQuery()
 			->execute();
@@ -69,5 +69,42 @@ class FahrzeugdatenblattRepository extends \Doctrine\ORM\EntityRepository
 		//counted = count($alleKarren);
 		//dump($cars);die;
 		return $cars;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function anfrageAllCars()
+	{
+
+
+		$transferdate = new \DateTime('2017-11-05 00:00');
+		$cars = $this
+			->createQueryBuilder('fahrzeugdatenblatt')
+			->join('fahrzeugdatenblatt.transferfahrten', 'tf')
+			->where('tf.createdAt = :date')
+			->setParameter('date', $transferdate)
+			->getQuery()
+			->execute();
+		return $cars;
+		//dump($cars); die;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function anfrageNeuAllCars()
+	{
+		$transferdate = new \DateTime('2017-11-05 00:00');
+
+		$cars = $this
+			->createQueryBuilder('fahrzeugdatenblatt')
+			->join('fahrzeugdatenblatt.transferfahrten', 'tf')
+			->where('tf.id = :date')
+			->setParameter('date', 21)
+			->getQuery()
+			->execute();
+		return $cars;
+		//dump($cars); die;
 	}
 }

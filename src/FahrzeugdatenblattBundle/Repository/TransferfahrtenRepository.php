@@ -52,7 +52,7 @@ class TransferfahrtenRepository extends \Doctrine\ORM\EntityRepository
 
 		$getCarID = $this
 			->createQueryBuilder('transferfahrten')
-			->andWhere('transferfahrten.createdAt > :date')
+			->andWhere('transferfahrten.startTime > :date')
 			->setParameter(':date', $date)
 			->getQuery()
 			->execute();
@@ -68,12 +68,15 @@ class TransferfahrtenRepository extends \Doctrine\ORM\EntityRepository
 	/**
 	 * @return mixed
 	 */
-	public function getBlockedTransfers()
+
+	// MIt Ben gebastelte laufende Version
+
+	public function getBlockedTransfersWorking()
 	{
 
 
-		$startzeit = new \DateTime('2017-11-07 09:00');
-		$endzeit = new \DateTime('2017-11-07 14:00');
+		$startzeit = new \DateTime('2017-11-07 07:00');
+		$endzeit = new \DateTime('2017-11-07 17:00');
 
 		$queryBuilder  = $this->createQueryBuilder('transferfahrten');
 		$queryBuilder->andWhere(
@@ -108,6 +111,60 @@ class TransferfahrtenRepository extends \Doctrine\ORM\EntityRepository
 										// OR
 										//     Endzeit Form between starttime / endtime DB
 										// AND Starttime DB != (neq) starttime form
+				$queryBuilder->expr()->andX( // open 4nd And
+					$queryBuilder->expr()->between(':endzeit', 'transferfahrten.startTime','transferfahrten.endTime'),
+					$queryBuilder->expr()->neq('transferfahrten.startTime', ':endzeit')
+				)
+
+			) // Close OR
+		);
+
+
+		$queryBuilder->setParameter(':startzeit', $startzeit);
+		$queryBuilder->setParameter(':endzeit', $endzeit);
+
+
+		$getTransfersBlockedComplete = $queryBuilder->getQuery()->execute();
+
+		return $getTransfersBlockedComplete;
+	}
+
+	public function getBlockedTransfers($startzeit, $endzeit)
+	{
+
+		$queryBuilder  = $this->createQueryBuilder('transferfahrten');
+		$queryBuilder->andWhere(
+			$queryBuilder->expr()->orX( // Open OR Clause
+			//
+			//
+			// Find all transfers
+			//     Starttime between starttime / endtime form
+			// AND Starttime != (neq) starttime form
+			// AND Starttime != (neq) endzeit form
+			// Start and Endtime
+				$queryBuilder->expr()->andX( // OPen first and
+					$queryBuilder->expr()->between('transferfahrten.startTime', ':startzeit',':endzeit'),
+					$queryBuilder->expr()->neq('transferfahrten.startTime', ':startzeit'), // mglw unwichtig??
+					$queryBuilder->expr()->neq('transferfahrten.startTime', ':endzeit')
+				),
+				// OR
+				//     Endtime between starttime / endtime form
+				// AND Endtime != (neq) starttime form
+				$queryBuilder->expr()->andX( // open 2nd And
+					$queryBuilder->expr()->between('transferfahrten.endTime', ':startzeit',':endzeit'),
+					$queryBuilder->expr()->neq('transferfahrten.endTime', ':startzeit')
+				),
+				// OR
+				//     Startzeit Form between starttime / endtime DB
+				// AND Endtime DB != (neq) starttime form
+				$queryBuilder->expr()->andX( // open 3nd And
+					$queryBuilder->expr()->between(':startzeit', 'transferfahrten.startTime','transferfahrten.endTime'),
+					$queryBuilder->expr()->neq('transferfahrten.endTime', ':startzeit')
+				),
+
+				// OR
+				//     Endzeit Form between starttime / endtime DB
+				// AND Starttime DB != (neq) starttime form
 				$queryBuilder->expr()->andX( // open 4nd And
 					$queryBuilder->expr()->between(':endzeit', 'transferfahrten.startTime','transferfahrten.endTime'),
 					$queryBuilder->expr()->neq('transferfahrten.startTime', ':endzeit')
