@@ -140,9 +140,12 @@ class FahrzeugController extends Controller
 
 		// Find all transfers which are blocked in the desired transfertime
 
+		$startzeit = new \DateTime('2017-11-07 07:00');
+		$endzeit = new \DateTime('2017-11-07 17:00');
+
 		/** @var  Transferfahrten $getBlockedTransfers */
 		$getBlockedTransfers = $em->getRepository('FahrzeugdatenblattBundle:Transferfahrten')
-			->getBlockedTransfers();
+			->getBlockedTransfers($startzeit, $endzeit);
 
 
 		// Set array for all blocked Car IDs
