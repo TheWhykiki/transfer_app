@@ -16,10 +16,11 @@ class TransferfahrtenRepository extends \Doctrine\ORM\EntityRepository
 	public function countAllTransfers()
 	{
 		$allTransfers = $this->createQueryBuilder('transferfahrten')
+			->select('count(transferfahrten)')
 			->getQuery()
-			->getArrayResult();
-		$counted = count($allTransfers);
-		return $counted;
+			->getSingleScalarResult();
+		//$counted = count($allTransfers);
+		return $allTransfers;
 	}
 
 	/**
@@ -32,7 +33,7 @@ class TransferfahrtenRepository extends \Doctrine\ORM\EntityRepository
 
 		$allTransfersThisMonth = $this
 			->createQueryBuilder('transferfahrten')
-			->andWhere('transferfahrten.createdAt > :date')
+			->andWhere('transferfahrten.startTime > :date')
 			->setParameter(':date', $date)
 			->getQuery()
 			->execute();
@@ -40,6 +41,125 @@ class TransferfahrtenRepository extends \Doctrine\ORM\EntityRepository
 		$counted = count($allTransfersThisMonth);
 		return $counted;
 	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getAllCarID()
+	{
+		$date = new \DateTime();
+		$date->modify('-30 days');
+
+		$getCarID = $this
+			->createQueryBuilder('transferfahrten')
+			->andWhere('transferfahrten.createdAt > :date')
+			->setParameter(':date', $date)
+			->getQuery()
+			->execute();
+		$test = [];
+		foreach ($getCarID as $carID){
+			$test[] = $carID->fahrzeuge->getId();
+		}
+		$result = array_unique($test);
+		//$counted = count($allTransfersThisMonth);
+		return $result;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getBlockedTransfers()
+	{
+
+
+		$startzeit = new \DateTime('2017-11-07 09:00');
+		$endzeit = new \DateTime('2017-11-07 14:00');
+
+		$queryBuilder  = $this->createQueryBuilder('transferfahrten');
+		$queryBuilder->andWhere(
+			$queryBuilder->expr()->orX( // Open OR Clause
+										//
+										//
+										// Find all transfers
+			                            //     Starttime between starttime / endtime form
+										// AND Starttime != (neq) starttime form
+										// AND Starttime != (neq) endzeit form
+										// Start and Endtime
+				$queryBuilder->expr()->andX( // OPen first and
+					$queryBuilder->expr()->between('transferfahrten.startTime', ':startzeit',':endzeit'),
+					$queryBuilder->expr()->neq('transferfahrten.startTime', ':startzeit'), // mglw unwichtig??
+					$queryBuilder->expr()->neq('transferfahrten.startTime', ':endzeit')
+				),
+										// OR
+										//     Endtime between starttime / endtime form
+										// AND Endtime != (neq) starttime form
+										$queryBuilder->expr()->andX( // open 2nd And
+					$queryBuilder->expr()->between('transferfahrten.endTime', ':startzeit',':endzeit'),
+					$queryBuilder->expr()->neq('transferfahrten.endTime', ':startzeit')
+				),
+										// OR
+										//     Startzeit Form between starttime / endtime DB
+										// AND Endtime DB != (neq) starttime form
+				$queryBuilder->expr()->andX( // open 3nd And
+					$queryBuilder->expr()->between(':startzeit', 'transferfahrten.startTime','transferfahrten.endTime'),
+					$queryBuilder->expr()->neq('transferfahrten.endTime', ':startzeit')
+				),
+
+										// OR
+										//     Endzeit Form between starttime / endtime DB
+										// AND Starttime DB != (neq) starttime form
+				$queryBuilder->expr()->andX( // open 4nd And
+					$queryBuilder->expr()->between(':endzeit', 'transferfahrten.startTime','transferfahrten.endTime'),
+					$queryBuilder->expr()->neq('transferfahrten.startTime', ':endzeit')
+				)
+
+			) // Close OR
+		);
+
+
+		$queryBuilder->setParameter(':startzeit', $startzeit);
+		$queryBuilder->setParameter(':endzeit', $endzeit);
+
+
+		$getTransfersBlockedComplete = $queryBuilder->getQuery()->execute();
+
+		return $getTransfersBlockedComplete;
+	}
+
+	/***
+	public function getTransfersBefore(){
+
+		// Find all transfers BEFORE desired startTime
+		// transfers MUST BE ended
+
+		$startzeit = new \DateTime('2017-11-07 09:00');
+
+
+		$getTransfersBefore = $this
+			->createQueryBuilder('transferfahrten')
+			->andWhere('transferfahrten.endTime <= :startzeit')
+			->setParameter(':startzeit', $startzeit)
+			->getQuery()
+			->execute();
+
+		return $getTransfersBefore;
+	}
+
+	public  function getTransfersAfter(){
+		// Find all transfers AFTER desired endTime
+		// transfers MUSTN'T BE started
+
+		$endzeit = new \DateTime('2017-11-07 14:00');
+
+		$getTransfersAfter = $this
+			->createQueryBuilder('transferfahrten')
+			->andWhere('transferfahrten.startTime >= :endzeit')
+			->setParameter(':endzeit', $endzeit)
+			->getQuery()
+			->execute();
+
+		return $getTransfersAfter;
+	} ***/
 }
 
 
