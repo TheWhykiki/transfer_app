@@ -9,6 +9,13 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="BrabBlue">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="Limotransfer">
         <serverdata>
           <mappings>
@@ -45,6 +52,13 @@
         </serverdata>
       </paths>
       <paths name="Quasimerch">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="Whykiki Rocks">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />

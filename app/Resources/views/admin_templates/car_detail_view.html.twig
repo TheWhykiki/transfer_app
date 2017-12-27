@@ -8,6 +8,7 @@
 
 
 {% block body %}
+
     {% for msg in app.session.flashBag.get('success') %}
         <div class="alert alert-success">
             {{ msg }}
@@ -39,7 +40,7 @@
                 <tr>
                     <td class="visible-lg"><a href="#">{{ fahrt.startDestination }}</a></td>
                     <td class="visible-lg"><a href="#">{{ fahrt.finishDestination }}</a></td>
-                    <td class="visible-lg"><a href="#">{{ fahrt.createdAt|date('d.m.Y') }}</a></td>
+                    <td class="visible-lg"><a href="#">{{ fahrt.startTime|date('d.m.Y') }}</a></td>
                     <td class="text-center">
                         <div class="btn-group btn-group-xs">
                             <a href="{{ path('fahrt_editieren', {'id': fahrt.id}) }}" data-toggle="tooltip" title="View" class="btn btn-default"><i class="fa fa-eye"></i></a>

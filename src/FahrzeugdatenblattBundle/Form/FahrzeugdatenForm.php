@@ -3,8 +3,11 @@
 namespace FahrzeugdatenblattBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichFileType;
+
 
 class FahrzeugdatenForm extends AbstractType
 {
@@ -18,7 +21,11 @@ class FahrzeugdatenForm extends AbstractType
 			->add('preisKm')
 			->add('preisStunde')
 			->add('preisGrund')
-			->add('bildFahrzeug')
+			->add('imageFile', VichFileType::class, [
+				'required' => false,
+				'allow_delete' => true,
+			])
+			//->add('bildFahrzeug', FileType::class, array('label' => 'Brochure (PDF file)'))
 			->add('zusatzinfos');
     }
 

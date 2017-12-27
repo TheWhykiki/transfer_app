@@ -162,6 +162,48 @@ class Transferfahrten
 	private $endTime;
 
 	/**
+	 * @ORM\Column(type="datetime", nullable=true)
+	 */
+	private $transferStart;
+
+	/**
+	 * @return mixed
+	 */
+	public function getTransferStart()
+	{
+		return $this->transferStart;
+	}
+
+	/**
+	 * @param mixed $transferStart
+	 */
+	public function setTransferStart($transferStart)
+	{
+		$this->transferStart = $transferStart;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getTransferEnd()
+	{
+		return $this->transferEnd;
+	}
+
+	/**
+	 * @param mixed $transferEnd
+	 */
+	public function setTransferEnd($transferEnd)
+	{
+		$this->transferEnd = $transferEnd;
+	}
+
+	/**
+	 * @ORM\Column(type="datetime", nullable=true)
+	 */
+
+	private $transferEnd;
+	/**
 	 * @return mixed
 	 */
 	public function getStartTime()

@@ -6,6 +6,7 @@ namespace FahrzeugdatenblattBundle\Controller;
 use FahrzeugdatenblattBundle\Entity\Transferfahrten;
 use FahrzeugdatenblattBundle\Form\FahrzeugdatenForm;
 use FahrzeugdatenblattBundle\Form\TransferfahrtenForm;
+use FahrzeugdatenblattBundle\Testfunctions\Testfunction;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use FahrzeugdatenblattBundle\Entity\Fahrzeugdatenblatt;
@@ -27,11 +28,19 @@ class FahrzeugController extends Controller
 	 */
 	public function autoErstellenAction(Request $request)
 	{
+		$fahrzeug = new Fahrzeugdatenblatt();
+
 		$form = $this->createForm(FahrzeugdatenForm::class);
 		$form->handleRequest($request);
 
 		if($form->isSubmitted() && $form->isValid()){
-			dump($form->getData()); die;
+			$transferFormData = $form->getData();
+			$em =   $this->getDoctrine()->getManager();
+			$em->persist($transferFormData);
+			$em->flush();
+
+			$this->addFlash('success', 'Auto erstellt!');
+			return $this->redirectToRoute('list_all_cars');
 		}
 
 		return $this->render('admin_templates/auto_neu.html.twig',[
@@ -154,6 +163,7 @@ class FahrzeugController extends Controller
 
 		foreach($getBlockedTransfers as $transfer){
 			/** @var  Transferfahrten $transfer */
+
 			$allBlockedCarIDs [] = $transfer->getFahrzeuge()->getID();
 		}
 

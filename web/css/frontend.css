@@ -1,0 +1,522 @@
+
+/********************************************************************************************************************************************************************/
+/** Media Queries **/
+/********************************************************************************************************************************************************************/
+
+@media print {}
+@media (max-width: 768px) {}
+@media (max-width: 992px) {}
+@media (max-width: 1200px) {}
+
+/********************************************************************************************************************************************************************/
+/** Allgemeines **/
+/********************************************************************************************************************************************************************/
+
+a {
+    color: #273582;
+}
+#login {
+    display: none;
+}
+body {
+    line-height: 175% !important;
+    color: #575756 !important;
+    padding: 20px;
+    background: #ccc;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    background-attachment: fixed;
+    background-image: url("http://www.limousinenservice24.hamburg/s/img/background.jpg?1498070676");
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+h1,h2,h3,h4,h5 {
+    margin: 0;
+    padding: 0;
+    color: #000;
+}
+h1 {
+    font-size: 26px;
+    padding-bottom: 30px;
+}
+h3 {
+    font-size: 26px;
+}
+.container{
+    background: #FFF;
+}
+
+.menu li{
+    float:left;
+}
+
+.row {
+    margin: 0;
+}
+/********************************************************************************************************************************************************************/
+/** Buttons **/
+/********************************************************************************************************************************************************************/
+
+.btn {
+    display: inline-block;
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    border-radius: 0px;
+}
+.btn-primary:hover {
+    color: #fff;
+    background-color: #273582;
+    border-color: #9d9c9c;
+}
+.btn-success {
+    background: #626a72;
+    border: 1px solid #626a72;
+    border-radius: 0px;
+    color: #fff;
+    font-size: 16px;
+    padding: 4px 12px;
+    border: 1px solid #9d9c9c;
+}
+.btn-success:hover {
+    background: #273582;
+}
+.carAddToCartBtn {
+    background: #fff;
+    font-size: 20px;
+    font-weight: 400;
+    color: #9d9c9c;
+    border: 1px solid #9d9c9c;
+    padding: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 20px;
+    float: left;
+    width: 100%;
+    cursor: pointer;
+}
+.carAddToCartBtn:hover {
+    background: #273582;
+    color: #fff;
+    font-weight: 600;
+}
+#button_next {
+    background: #000;
+    border: 1px solid #9d9c9c;
+    border-radius: 0px;
+    color: #fff;
+    font-size: 16px;
+    padding: 4px 12px;
+    margin: 265px 7px 0 0;
+}
+#button_next:hover {
+    background: #273582;
+}
+#button_fahrtart label {
+    background-color: #626a72;
+    border-radius: 0px;
+    border: 1px solid #9d9c9c;
+    overflow: auto;
+    text-align: center;
+    padding: 0 20px !important;
+    cursor: pointer;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-right: 10px;
+}
+#button_fahrtart label span {
+    padding: 13px 0px;
+    display: block;
+}
+#button_fahrtart input:checked + label {
+    color: #fff;
+    background-color: #273582;
+}
+#button_fahrtart input:not(:checked) + label {
+    color: #9d9c9c;
+}
+#button_fahrtart label:hover {
+    background-color: #273582;
+}
+/********************************************************************************************************************************************************************/
+/** Step 2 **/
+/********************************************************************************************************************************************************************/
+
+.carAddUl {
+    list-style: none;
+    padding: 0;
+}
+.carAddInfos:before {
+    font-family: 'FontAwesome';
+    content: "\f046\00a0\00a0";
+    color: #888;
+    font-size: 18px;
+    margin-left: -20px;
+    width: 60px;
+}
+.carAddInfos {
+    padding-left: 20px;
+}
+.carItemLeftColumn {
+    padding: 0 !important;
+}
+.carListView{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.carItem{
+    padding: 20px 10px;
+    border-bottom: 1px solid black;
+}
+.btnStep2{
+    display: none;
+}
+#cck1r_af_show_distance{
+    display: none;
+}
+.carItemPrice{
+    border: none;
+    font-weight: bold;
+    text-align: right;
+}
+.currency{
+    font-weight:bold;
+}
+.container {
+    background: #fff;
+    padding: 20px;
+    max-width: 970px;
+}
+.item-page {
+    background: rgba(255,255,255,0.85) !important;
+    min-height: 450px;
+    padding: 15px;
+    margin-top: 0px;
+    margin-bottom: 30px;
+}
+#header {
+    margin-top: 20px;
+}
+.carListView {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.carItem {
+    padding: 20px 10px;
+    border-bottom: 1px solid black;
+}
+.btnStep2 {
+    display: none;
+}
+#cck1r_af_show_distance {
+    display: none;
+}
+.carListHeadline {
+    margin-bottom: 10px;
+}
+.carBrandHeadline {
+    padding-top: 10px;
+    font-size: 16px;
+}
+.carItemPriceBlock {
+    background: #9d9c9c;
+    float: left;
+    width: 100%;
+}
+.carItemPrice {
+    background: transparent;
+    border: none;
+    font-size: 40px;
+    font-weight: 600;
+    text-align: center;
+    color: #fff;
+    display: block;
+    width: 100%;
+    height: 60px;
+    float: left;
+    line-height: 40px;
+    margin: 0px;
+    padding-top: 20px;
+}
+.carItemPrice::after {
+    content: ' EUR';
+}
+.currency {
+    font-size: 40px;
+    display: block;
+    width: 10%;
+    height: 40px;
+    float: left;
+    line-height: 50px;
+    margin: 0px;
+    color: #fff;
+    padding-left: 7px;
+}
+.inclusive {
+    font-size: 12px;
+    text-align: center;
+    color: #fff;
+    margin-top: 10px;
+}
+.inclusiveContainer {
+    margin-top: 10px;
+}
+
+.carItemImage {
+    width: 100%;
+}
+.abdecker {
+    background: #fff;
+    height: 100%;
+    position: relative;
+}
+.abgedeckt {
+    display: none;
+}
+.spinner {
+    color: #ccc;
+    width: 100%;
+    font-size: 100px;
+}
+.weiterleitung {
+    text-align: center;
+    padding-top: 50px;
+    font-weight: 300;
+}
+.showInfoTop {
+    margin-left: 10px;
+    border-bottom: 1px solid black;
+}
+.maxValues {
+    margin-top: -10px;
+}
+.carItemRightColumn {
+    margin-top: 45px;
+}
+
+
+/********************************************************************************************************************************************************************/
+/** Step 1 – Anfrage allgemein **/
+/********************************************************************************************************************************************************************/
+
+input {
+    border-width: 1px;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    border-style: solid;
+    margin-bottom: 20px;
+    min-height: 35px;
+}
+.inputbox {
+    border: 1px solid #ececec !important;
+    width: 100%;
+}
+.inputbox::placeholder {
+    font-style: italic;
+    font-size: 0.85em !important;
+}
+label {
+    font-weight: 300;
+}
+.anfrage {
+    margin: 10px 0 20px 0;
+}
+#cck1r_form_button_next {
+    float: right;
+}
+
+
+/********************************************************************************************************************************************************************/
+/** Radio Button Transfer / Per Stunde **/
+/********************************************************************************************************************************************************************/
+
+#cck1r_form_button_fahrtart input[type="radio"] {
+    display: none;
+}
+
+/********************************************************************************************************************************************************************/
+/** Feld Datum / Kalender **/
+/********************************************************************************************************************************************************************/
+
+#textfeld_datum {
+    border: 1px solid #ececec;
+    -webkit-border-top-right-radius: 3px;
+    -webkit-border-bottom-right-radius: 3px;
+    -moz-border-radius-topright: 3px;
+    -moz-border-radius-bottomright: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    font-size: 16px !important;
+    width: 78%
+}
+#cck1r_form_textfeld_datum:before {
+    font-family: 'FontAwesome';
+    content: "\f073";
+    color: #626a72;
+    font-size: 14px;
+    background: #ececec;
+    padding: 4px 13px;
+    -webkit-border-top-left-radius: 3px;
+    -webkit-border-bottom-left-radius: 3px;
+    -moz-border-radius-topleft: 3px;
+    -moz-border-radius-bottomleft: 3px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    float: left;
+}
+#cck1r_form_textfeld_datum:after {
+    position: absolute;
+    font-family: 'FontAwesome';
+    color: #273582;
+    right: 33px;
+    top: 4px;
+    content: "\f0d7";
+}
+#textfeld_datum_btn {
+    background: transparent;
+    color: transparent;
+    margin: -65px 0 0 40px;
+    width: 80%;
+}
+/*#textfeld_datum_btn {
+  background: rgb(229, 227, 223);
+  border: 1px solid #ececec;
+  border-radius: 0px;
+  cursor: pointer;
+  height: 35px;
+  margin-top: -65px;
+}*/
+.js-calendar {
+    margin-top: -25px;
+}
+.calendar-head-row:first-child {
+    display: none;
+}
+.calendar-container .day-name {
+    font-size: 0.75em;
+}
+.calendar-container table tbody td.selected {
+    background: #273582;
+}
+.calendar-container table tbody td.today::after {
+    background-color: #626a72;
+}
+.js-btn {
+    font-size: 14px;
+}
+.btn-prev-month, .btn-next-month {
+    font-size: 30px;
+}
+/********************************************************************************************************************************************************************/
+/** Feld Dauer  **/
+/********************************************************************************************************************************************************************/
+
+#cck1r_form_textfeld_stunde {
+    width: 100%;
+}
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border:none;
+    border-radius: 0;
+    font-size: 1em;
+    width: 100%;
+}
+select.feldDauer{
+    -webkit-appearance: button;
+    -webkit-border-radius: 0px;
+    -webkit-user-select: none;
+    font-size: inherit;
+    overflow: hidden;
+    padding: 6px 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    cursor: pointer;
+}
+div.cck_forms select.inputbox, div.cck_forms select.inputbox:focus {
+    padding: 6px !important;
+    outline: none !important;
+}
+#cck1r_form_textfeld_stunde:before {
+    position: absolute;
+    font-family: 'FontAwesome';
+    color: #273582;
+    right: 30px;
+    top: 4px;
+    content: "\f0d7";
+}
+
+/********************************************************************************************************************************************************************/
+/** Feld Uhrzeit **/
+/********************************************************************************************************************************************************************/
+
+#timepicker {
+    cursor: pointer;
+}
+#cck1r_form_af_textfeld_timepicker {
+    font-size: 16px !important;
+    width: 77%;
+}
+#cck1r_af_textfeld_timepicker:before {
+    font-family: 'FontAwesome';
+    content: "\f017";
+    color: #626a72;
+    font-size: 20px !important;
+    background: #ececec;
+    padding: 3px 10px;
+    border: 1px solid #ececec;
+    -webkit-border-top-left-radius: 3px;
+    -webkit-border-bottom-left-radius: 3px;
+    -moz-border-radius-topleft: 3px;
+    -moz-border-radius-bottomleft: 3px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    float: left;
+}
+#cck1r_af_textfeld_timepicker:after {
+    position: absolute;
+    font-family: 'FontAwesome';
+    color: #273582;
+    right: 33px;
+    top: 4px;
+    content: "\f0d7";
+}
+
+/********************************************************************************************************************************************************************/
+/** Typo **/
+/********************************************************************************************************************************************************************/
+
+.cart-estimator-discount-block,
+.cart-continue-shopping-button,
+.cart-update-button,
+.cart-product-unit-price,
+.cart-footer,
+#akeeba-renderjoomla h3 {
+    display: none !important;
+}
+
+#akeeba-renderjoomla label {
+    margin-top: -38px !important;
+    padding-left: 10px;
+}

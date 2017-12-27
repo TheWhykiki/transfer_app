@@ -4,12 +4,18 @@ namespace FahrzeugdatenblattBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Entity\File as EmbeddedFile;
+
 
 /**
  * Fahrzeugdatenblatt
  *
  * @ORM\Table(name="fahrzeugdatenblatt")
  * @ORM\Entity(repositoryClass="FahrzeugdatenblattBundle\Repository\FahrzeugdatenblattRepository")
+ * @Vich\Uploadable
  */
 class Fahrzeugdatenblatt
 {
@@ -90,12 +96,8 @@ class Fahrzeugdatenblatt
      */
     private $preisGrund;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="bild_fahrzeug", type="string", length=255, nullable=true)
-     */
-    private $bildFahrzeug;
+
+
 
     /**
      * @var string
@@ -361,6 +363,58 @@ class Fahrzeugdatenblatt
 	public function getTransferfahrten()
 	{
 		return $this->transferfahrten;
+	}
+
+
+
+
+	/**
+	 * @var string
+	 *
+	 * @ORM\Column(name="bild_fahrzeug", type="string", length=255, nullable=true)
+	 */
+	private $bildFahrzeug;
+
+	/**
+	 * @Vich\UploadableField(mapping="product_images", fileNameProperty="bild_fahrzeug")
+	 * @var File
+	 */
+	private $imageFile;
+
+	/**
+	 * @ORM\Column(type="datetime")
+	 * @var \DateTime
+	 */
+	private $updatedAt;
+
+	// ...
+
+	public function setImageFile(File $image = null)
+	{
+		$this->imageFile = $image;
+
+		// VERY IMPORTANT:
+		// It is required that at least one field changes if you are using Doctrine,
+		// otherwise the event listeners won't be called and the file is lost
+		if ($image) {
+			// if 'updatedAt' is not defined in your entity, use another property
+			$this->updatedAt = new \DateTime('now');
+		}
+	}
+
+	public function getImageFile()
+	{
+		return $this->imageFile;
+	}
+
+	public function setImage($image)
+	{
+		$this->image = $image;
+	}
+
+	public function getImage()
+	{
+		return $this->image;
 	}
 
 

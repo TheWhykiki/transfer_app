@@ -19,6 +19,15 @@
                 <li>
                     <a href="index2.php" class=" active"><i class="gi gi-leaf sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Dashboard 2</span></a>
                 </li> -->
+                {%  if is_granted('ROLE_USER') %}
+                <li>
+                    <a href="{{ path('user_logout') }}">Logout</a>
+                </li>
+                {%  else %}
+                <li>
+                    <a href="{{ path('user_login') }}">Login </a>
+                </li>
+                {%  endif %}
                 <li>
                     <a href="#" class="sidebar-nav-menu open"><i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="gi gi-shopping_cart sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Verwaltung</span></a>
                     {{ knp_menu_render('AppBundle:MenuBuilder:mainMenu') }}

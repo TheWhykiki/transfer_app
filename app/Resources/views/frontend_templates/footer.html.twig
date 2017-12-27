@@ -4,9 +4,139 @@
     <script src="{{ asset('js/picker.js') }}"></script>
     <script src="{{ asset('js/picker.time.js') }}"></script>
     <script src="{{ asset('js/picker.date.js') }}"></script>
+    <script src="{{ asset('js/wow.min.js') }}"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBGa4_JpZaF8OEK56sFxJwoHYfmnpM6d98" type="text/javascript"></script>
     <script>
         $( document ).ready(function() {
 
+
+            new WOW().init();
+
+            // Define variables
+
+            var durationTransfer = 0;
+            var distanceTransfer = 0;
+            var distanceToStart = 0;
+            var durationToStart = 0;
+            var distanceToOrigin = 0;
+            var durationToOrigin = 0;
+
+            // Get distance and duration from
+            // company homebase to transfer start
+
+            $( "input" ).change(function() {
+                var directionsService = new google.maps.DirectionsService();
+
+                var request = {
+                    origin: 'Moers',
+                    destination: $('#fahrzeugdatenblatt_bundle_anfrage_form_startDestination').val(),
+                    travelMode: google.maps.DirectionsTravelMode.DRIVING
+                };
+
+                directionsService.route(request, function (response, status) {
+                    if (status == google.maps.DirectionsStatus.OK) {
+
+                        distanceToStart = response.routes[0].legs[0].distance.value;
+                        durationToStart = response.routes[0].legs[0].duration.value;
+                    }
+                });
+            });
+
+            // Get distance and duration from
+            // end point back to origin (homebase)
+
+            $( "input" ).change(function() {
+                var directionsService = new google.maps.DirectionsService();
+
+                var request = {
+                    origin: 'Moers',
+                    destination: $('#fahrzeugdatenblatt_bundle_anfrage_form_finishDestination').val(),
+                    travelMode: google.maps.DirectionsTravelMode.DRIVING
+                };
+
+                directionsService.route(request, function (response, status) {
+                    if (status == google.maps.DirectionsStatus.OK) {
+
+                        distanceToOrigin = response.routes[0].legs[0].distance.value;
+                        durationToOrigin = response.routes[0].legs[0].duration.value;
+                    }
+                });
+            });
+
+            // Google API Waypoints
+
+            var Waypoints = {
+                map: null,
+                directionsService: new google.maps.DirectionsService(),
+                directionsDisplay: new google.maps.DirectionsRenderer(),
+
+                options: {
+                    zoom: 7,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                },
+
+                // Get inputs
+                inputs: {
+                    wp1: document.getElementById('fahrzeugdatenblatt_bundle_anfrage_form_startDestination'),
+                    wp2: document.getElementById('fahrzeugdatenblatt_bundle_anfrage_form_finishDestination'),
+                },
+
+                values: {
+                    fahrzeugdatenblatt_bundle_anfrage_form_startDestination: '',
+                    fahrzeugdatenblatt_bundle_anfrage_form_finishDestination: ''
+                },
+
+                onChange: function(e) {
+                    Waypoints.values[e.target.id] = this.value;
+                    Waypoints.requestDirections();
+                    Waypoints.map.setZoom;
+
+                },
+
+                addEvents: function() {
+                    this.inputs.wp1.addEventListener('blur', Waypoints.onChange, false);
+                    this.inputs.wp2.addEventListener('blur', Waypoints.onChange, false);
+                },
+
+                init: function() {
+                    Waypoints.initMap();
+                    Waypoints.addEvents();
+                    Waypoints.requestDirections();
+                },
+
+                initMap: function() {
+                    Waypoints.map = new google.maps.Map(document.getElementById("map"), Waypoints.options);
+                    Waypoints.directionsDisplay.setMap(Waypoints.map);
+                },
+
+                requestDirections: function() {
+                    var request = {
+                        origin: Waypoints.values.fahrzeugdatenblatt_bundle_anfrage_form_startDestination,
+                        destination: Waypoints.values.fahrzeugdatenblatt_bundle_anfrage_form_finishDestination,
+                        travelMode: google.maps.DirectionsTravelMode.DRIVING
+                    };
+
+                    Waypoints.directionsService.route(request, function (response, status) {
+                        if (status == google.maps.DirectionsStatus.OK) {
+                            //document.getElementById('distanceResult').value = '';
+                            // Display both:
+                            //document.getElementById('distanceResult').value += '{"duration":"' + response.routes[0].legs[0].duration.value + '","distance":"' + response.routes[0].legs[0].distance.value + '"}' ;
+                            //document.getElementById('map').classList.add('mapShower');
+                            distanceTransfer = response.routes[0].legs[0].distance.value;
+                            durationTransfer = response.routes[0].legs[0].duration.value;
+                            console.log('dur' + durationTransfer + 'dis' + distanceTransfer + 'disStart' + distanceToStart + 'durStart' + durationToStart);
+
+
+                            Waypoints.directionsDisplay.setDirections(response);
+                        }
+                    });
+                }
+            };
+            window.onload = Waypoints.init;
+
+
+
+            // Timepicker
 
             $('.timepicker').pickatime({
                 format: 'HH:i U!hr',
@@ -14,6 +144,9 @@
                 interval: 15,
                 hiddenSuffix: 'hiddenTime_submit',
             });
+
+            // Datepicker
+
             $('.datepicker').pickadate(
                 {
                     // Strings and translations
@@ -28,35 +161,88 @@
                     hiddenSuffix: 'hiddenDate_submit',
                 }
             );
-
+            var currentTransferID = '';
+            // Ajax Call1
             $("#notSend").submit(function(e){
                 var submittedDate = $('input[name="hiddenDate_submit"]').attr('value');
                 var submittedTime = $('input[name="hiddenTime_submit"]').attr('value');
-                $('#fahrzeugdatenblatt_bundle_anfrage_form_createdAt').val(submittedDate + ' ' + submittedTime);
+                $('#fahrzeugdatenblatt_bundle_anfrage_form_startTime').val(submittedDate + ' ' + submittedTime);
 
-                var name = $('#fahrzeugdatenblatt_bundle_anfrage_form_createdAt').val();
+                // Define the date
+                var timeCustomer=new Date(submittedDate + ' ' + submittedTime);
+                var carToStart=new Date();
+                var customerEndTime = new Date(); // Offset by one day;
+                var carBackHome = new Date(); // Offset by one day;
+                carToStart.setTime(timeCustomer.getTime()- (durationToStart*1000));
+                customerEndTime.setTime( timeCustomer.getTime()+ (durationTransfer)*1000);
+                var submittedEndTime = customerEndTime.toISOString().substr(0, 19).replace('T', ' ');
+                //var submittedEndTime =  customerEndTime.getFullYear()  + "-" + (customerEndTime.getMonth()+1) + "-" + customerEndTime.getDate() + " " + customerEndTime.getHours() + ":" + customerEndTime.getMinutes();
+
+                carBackHome.setTime( carToStart.getTime()+ (durationTransfer+durationToStart+durationToOrigin)*1000);
+
+
+                $('#testausgabe').html(
+                    '<ul>' +
+                    '<li>Distance Transfer:' + distanceTransfer/1000 + '</li>' +
+                    '<li>Distance Start:' + distanceToStart/1000 + '</li>' +
+                    '<li>Distance End:' + distanceToOrigin/1000 + '</li>' +
+                    '<li>Distance Complete:' + parseInt((distanceToStart + distanceTransfer + distanceToOrigin)/1000) + '</li>' +
+                    '<li>Duration Transfer:' + durationTransfer +  '</li>' +
+                    '<li>Duration Start:' + durationToStart +  '</li>' +
+                    '<li>Duration End:' + durationToOrigin +  '</li>' +
+                    '<li>Duration Complete:' + parseFloat((durationToStart + durationTransfer + durationToOrigin)/3600) +  ' </li>' +
+                    '<li>Time Car Start:' + carToStart +  ' </li>' +
+                    '<li>Time Customer:' + timeCustomer +  ' </li>' +
+                    '<li>Time Customer ended:' + submittedEndTime +  ' </li>' +
+                    '<li>Time Car @Home:' + carBackHome +  ' </li>' +
+                    '</ul>'
+                );
+
+                var startDestination =  $('#fahrzeugdatenblatt_bundle_anfrage_form_startDestination').val();
+                var finishDestination =  $('#fahrzeugdatenblatt_bundle_anfrage_form_finishDestination').val();
+                var startTime = $('#fahrzeugdatenblatt_bundle_anfrage_form_startTime').val();
+
                 $.ajax({
-                    url: "json_cars_filtered",
+                    url: "json_cars_filtered_testerei",
                     type: "POST",
-                    data: { name: name },
+                    data: { startTime: startTime, endTime: submittedEndTime, startDestination: startDestination, finishDestination: finishDestination, distance: distanceTransfer, duration: durationTransfer  },
                     dataType:"JSON",
                     success: function (data) {
-                        $.each( data, function( key, value ) {
+                        var counter = 0;
+                        $.each( data, function( key ) {
+                            counter++;
+                            currentTransferID =  data[key].currentTransferID;
                             //alert( key + ": " + data[key].marke );
-                            $('#ergebnis').html('<label>' + data[key].marke + '</label><p>'+  data[key].modell + '</p>')
-                        });
-                        //$('#ergebnis').append('<p>' + data + '</p>');
+                            console.log(counter);
+                            var content = '<li class="wow animate slideInUp col-md-12 carItem"><div class="row"><div class="col-md-3 carItemLeftColumn"><h3 class="carListHeadline">' + data[key].kategorie + '</h3><p class="carBrandHeadline">'+  data[key].marke + ' ' +  data[key].modell + '</p><p class="maxValues">max. ' +
+                                data[key].personenMax + '&nbsp;&nbsp;<i style="color: #878787; font-size: 18px;" class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;max. ' + data[key].personenMax +
+                                '&nbsp;&nbsp;<i style="color: #878787; font-size: 18px;" class="fa fa-suitcase" aria-hidden="true"></i></p><ul class="carAddUl"><li class="carAddInfos">Wartezeit bis 15 Min.,  Flughafen-Abholungen  bis 60 Minuten</li><li class="carAddInfos">Abholservice mit  Namensschild</li></ul></div>' +
+                                '<div class="col-md-6 carItemMiddleColumn carItemImageContainer"><img src="/images/fahrzeuge/vklasse.jpg" class="carItemImage" title="' +  data[key].marke + '" alt="Bild von Mercedes Benz<"></div>' +
+                                '<div class="col-md-3 carItemRightColumn"><div class="carItemPriceBlock"><input class="carItemPrice carItemPriceKM-' + counter + ' carItemPrice" value=" 89,00" readonly=""><div class="inclusiveContainer"><p class="inclusive">inkl. aller Gebühren, MwSt und Tipp</p></div></div>' +
+                                '<div class="carAddToCartBtn carAddToCartBtn-' + counter + ' btn-primary">Auswählen</div></div></div></li>';
+
+
+                            $('.carListView').append(content)
+
+
+                        }).delay(4000);
+
+                        console.log('id' + currentTransferID);
                     },
                     error: function () {
                         alert('error');
                     }
                 });
+                console.log(submittedDate);
 
                 e.preventDefault();
-                console.log(submittedDate);
-                console.log(tester);
+
             });
 
+            $( ".kikiTestbutton" ).click(function(e) {
+                alert(currentTransferID);
+                e.preventDefault();
+            });
 
             /*
                 $.ajax({
@@ -73,28 +259,6 @@
                         alert('error');
                     }
                 }); */
-
-
-
-            $('#fahrzeugdatenblatt_bundle_anfrage_form_createdAt').change(function(){
-                var name = $('#fahrzeugdatenblatt_bundle_anfrage_form_createdAt').val();
-                $.ajax({
-                    url: "json_cars_filtered",
-                    type: "POST",
-                    data: { name: name },
-                    dataType:"JSON",
-                    success: function (data) {
-                        $.each( data, function( key, value ) {
-                            //alert( key + ": " + data[key].marke );
-                            $('#ergebnis').html('<label>' + data[key].marke + '</label><p>'+  data[key].modell + '</p>')
-                        });
-                        //$('#ergebnis').append('<p>' + data + '</p>');
-                    },
-                    error: function () {
-                        alert('error');
-                    }
-                });
-            });
         });
     </script>
 {% endblock %}

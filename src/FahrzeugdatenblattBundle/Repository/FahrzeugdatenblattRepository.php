@@ -56,7 +56,7 @@ class FahrzeugdatenblattRepository extends \Doctrine\ORM\EntityRepository
 		$cars = $this
 			->createQueryBuilder('fahrzeugdatenblatt')
 			->join('fahrzeugdatenblatt.transferfahrten', 'tf')
-			->where('tf.startTime = :date')
+			->where('tf.startTime != :date')
 			->setParameter('date', $transferdate)
 			->getQuery()
 			->execute();
