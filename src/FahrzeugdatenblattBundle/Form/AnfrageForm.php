@@ -12,11 +12,29 @@ class AnfrageForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 	    $builder
-		    ->add('createdAt', DateType::class, [
+		    ->add('startTime', DateType::class, [
 			    'widget' => 'single_text',
 			    'html5' => false,
 			    'attr' => [
 				    'class' => 'dateGetter'
+			    ]
+		    ])
+		    ->add('startDestination', DateType::class, [
+		    'widget' => 'single_text',
+		    'html5' => false,
+		    'attr' => [
+			    'class' => 'inputbox text placeholderNeu requiredInput',
+			    'id' => 'textfeld_abfahrt',
+			    'placeholder' => 'von (Adresse, Flughafen, Hotel...)'
+		        ]
+	        ])
+		    ->add('finishDestination', DateType::class, [
+			    'widget' => 'single_text',
+			    'html5' => false,
+			    'attr' => [
+				    'class' => 'inputbox text placeholderNeu requiredInput',
+				    'id' => 'textfeld_ziel',
+				    'placeholder' => 'nach (Adresse, Flughafen, Hotel...)'
 			    ]
 		    ]);
 

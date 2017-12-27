@@ -10,6 +10,7 @@ namespace FahrzeugdatenblattBundle\Controller;
 
 
 use FahrzeugdatenblattBundle\Form\AnfrageForm;
+use FahrzeugdatenblattBundle\Testfunctions\Testfunction;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,7 +28,19 @@ class FrontendController extends Controller
 
 
 		return $this->render('frontend_templates/base.html.twig',[
-			'anfrageForm' => $form->createView()
+			'anfrageForm' => $form->createView(),
+		]);
+	}
+
+	/**
+	 * @Route("/spielerei_front", name="spielereiFront")
+	 */
+	public function spielereiFrontAction(Testfunction $testfunction){
+
+		$testVar = $testfunction->testkikiFunction();
+		dump($testVar);die;
+		return $this->render('frontend_templates/base.html.twig',[
+			'tester' => $testfunction->testkikiFunction()
 		]);
 	}
 }

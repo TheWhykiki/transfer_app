@@ -1,26 +1,54 @@
 {% include 'frontend_templates/head.html.twig' %}
-{% block body %}
 <body>
-{{ form_start(anfrageForm) }}
-{{ form_widget(anfrageForm) }}
+{% block body %}
+    <header id="header" class="container">
+        Hier ein Header falls nötig
+    </header>
 
-{{ form_end(anfrageForm) }}
+    <section id="mainContent" class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <fieldset id="button_fahrtart" class="radios btnFahrtart">
+                    <input type="radio" id="button_fahrtart0" name="button_fahrtart" value="Transfer" checked="checked" class="radio validate[required]" size="1">
+                    <label for="button_fahrtart0">Transfer</label>
+                    <input type="radio" id="button_fahrtart1" name="button_fahrtart" value="Per Stunde" class="radio validate[required]" size="1">
+                    <label for="button_fahrtart1">Per Stunde</label>
+                </fieldset>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                {{ form_start(anfrageForm) }}
+                {{ form_widget(anfrageForm) }}
 
-<div id="ergebnis">
+                {{ form_end(anfrageForm) }}
 
-</div>
-<form id="notSend">
-    <button type="submit">Send</button>
-    <input type="text" class="kiki">
-    <input type="text" class="timepicker">
-    <input type="text" class="datepicker">
-</form>
+                <div id="ergebnis">
+                    <ul class="carListView row">
+                    </ul>
+                </div>
+                <form id="notSend">
+                    <button type="submit">Send</button>
 
+                    <input type="text" class="timepicker">
+                    <input type="text" class="datepicker">
+                    <div id="map" style="width: 400px; height: 300px;"></div>
+                    <input type="text" id="distanceResult" name="af_entfernung" value="" class="inputbox text" size="0" maxlength="255" />
+                    <input type="text" id="distanceResult2" name="af_entfernung2" value="" class="inputbox text" size="0" maxlength="255" />
+
+                    <div class="kikiTestbutton">Koko</div>
+                    <div id="testausgabe">
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+
+    </section>
 
 {% include 'frontend_templates/footer.html.twig' %}
-</body>
-
-
-
 {% endblock %}
+</body>
 </html>

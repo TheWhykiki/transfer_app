@@ -82,7 +82,7 @@
                     <td class="visible-lg"><a href="#">{{ fahrt.finishDestination }}</a></td>
                     <td class="visible-lg"><a href="#">{{ fahrt.duration }}</a></td>
                     <td class="visible-lg"><a href="#">{{ fahrt.distance }}</a></td>
-                    <td class="visible-lg"><a href="#">{{ fahrt.createdAt|date('d.m.Y') }}</a></td>
+                    <td class="visible-lg"><a href="#">{{ fahrt.startTime|date('d.m.Y') }}</a></td>
                     <td class="visible-lg"><a href="{{ path('car_detail_view', {'id': fahrt.fahrzeuge.id}) }}">{{ fahrt.fahrzeuge }}</a></td>
                     <td class="text-center">
                         <div class="btn-group btn-group-xs">

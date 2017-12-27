@@ -1,0 +1,4 @@
+services:
+  whykiki.fahrzeugcounter: '@FahrzeugdatenblattBundle\Testfunctions\Testfunction'
+  app.security_login: '@AppBundle\Security\LoginFormAuthenticator'
+  app.doctrine.hash_password_listener: '@AppBundle\Doctrine\HashPasswordListener'

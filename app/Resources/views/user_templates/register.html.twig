@@ -1,0 +1,11 @@
+{% extends 'frontend_templates/base.html.twig' %}
+
+{% block body %}
+
+{{ form_start(formRegister) }}
+{{ form_widget(formRegister) }}
+<button type="submit" class="btn btn-primary" formnovalidate>Registrieren</button>
+{{ form_end(formRegister) }}
+
+    {{ wurst }}
+{% endblock %}

@@ -8,19 +8,9 @@
 
 namespace FahrzeugdatenblattBundle\Testfunctions;
 
-
 class Testfunction
 {
-
-	private $parser;
-
-	public function __construct($parser)
-	{
-		$this->parser = $parser;
-	}
-
 	public function testkikiFunction(){
-
-		return $this->parser;
+		return 'Snop';
 	}
 }

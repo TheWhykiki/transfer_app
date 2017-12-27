@@ -1,5 +1,9 @@
 # Learn more about services, parameters and containers at
 # https://symfony.com/doc/current/service_container.html
+
+imports:
+    - { resource: legacy_aliases.yml}
+
 parameters:
     #parameter_name: value
 
@@ -33,9 +37,15 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
-    whykiki.fahrzeugcounter:
-      class: FahrzeugdatenblattBundle\Testfunctions\Testfunction
 
-    app.security_login:
-      class: AppBundle\Security\LoginFormAuthenticator
+    FahrzeugdatenblattBundle\Testfunctions\Testfunction:
+      public: true
       autowire: true
+
+    FahrzeugdatenblattBundle\Controller\FrontendController:
+        public: true
+
+
+    AppBundle\Doctrine\HashPasswordListener:
+      tags:
+          - { name: doctrine.event_subscriber}

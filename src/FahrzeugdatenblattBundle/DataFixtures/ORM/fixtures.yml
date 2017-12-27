@@ -6,15 +6,18 @@ FahrzeugdatenblattBundle\Entity\Fahrzeugdatenblatt:
         personenMax: <numberBetween(1, 200)>
 
 FahrzeugdatenblattBundle\Entity\Transferfahrten:
-    transferfahrten_{1..100}:
+    transferfahrten_{1..10}:
         startDestination: <city()>
         finishDestination: <city()>
         duration: <numberBetween(1, 200)>
         distance: <numberBetween(1, 9999)>
-        createdAt: <dateTimeBetween("-200 days", "now")>
+        startTime: <dateTimeBetween("-1 days", "now")>
+        endTime: <dateTimeBetween( "now", "+5 hours")>
         fahrzeuge: '@fahrzeugdatenblatt_*'
         isPublished: true
 
 AppBundle\Entity\User:
         user_{1..20}:
           email: whykiki+<current()>@whykiki.de
+          plainPassword: testkiki
+          roles: ['ROLE_ADMIN']

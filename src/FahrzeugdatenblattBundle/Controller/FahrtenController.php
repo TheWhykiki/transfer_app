@@ -239,7 +239,7 @@ class FahrtenController extends Controller
 			$limit
 		);
 
-		//dump($paginatedTransfers);die;
+		dump($paginatedTransfers);die;
 
 		return $this->render('admin_templates/ausgabe_alle_fahrten.html.twig',[
 			'transferfahrten' => $paginatedTransfers,

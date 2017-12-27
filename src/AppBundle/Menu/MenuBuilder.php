@@ -30,14 +30,6 @@ class MenuBuilder implements ContainerAwareInterface
 				]
 			],
 			[
-				'routename' => 'Login',
-				'route' => 'user_login',
-				'attributes' => [
-					'class' => 'mainMenuLink',
-					'id' => 'mainMenuID'
-				]
-			],
-			[
 				'routename' => 'Neue Fahrt anlegen',
 				'route' => 'neue_fahrt',
 				'attributes' => [

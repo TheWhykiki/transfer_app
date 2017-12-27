@@ -1,0 +1,174 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Whykiki2013
+ * Date: 06.11.2017
+ * Time: 14:36
+ */
+
+namespace FahrzeugdatenblattBundle\Controller;
+
+use FahrzeugdatenblattBundle\Entity\Fahrzeugdatenblatt;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
+class APIFahrzeugeController extends Controller
+{
+	/************************************************************************************************************************
+	 *
+	 * API Endpoint Filtered Auros Test
+	 *
+	 ***********************************************************************************************************************/
+
+	/**
+	 * @Route("/json_cars_filtered")
+	 * @Method("POST")
+	 */
+	public function getJSONCarsFilteredAction(Request $request){
+
+
+		$datum = '2017-11-04 00:00';
+		$em = $this->getDoctrine()->getManager();
+		$karren = $em->getRepository('FahrzeugdatenblattBundle:Fahrzeugdatenblatt')
+					->anfrageFilterCars($datum);
+		//Generate JSON Structure
+		$jsonData = [];
+
+		foreach($karren as $karre){
+			$transfers = $karre->getTransferfahrten();
+			//$transferDatum = $auto->getTransferfahrten()->getCreatedAt();
+			$jsonData[] = [
+				'transfers' => $transfers
+
+
+			];
+		}
+		dump($jsonData);die;
+		return New Response(json_encode($jsonData));
+	}
+
+		/************************************************************************************************************************
+    	 *
+    	 * API Endpoint all Transfers
+    	 *
+    	 ***********************************************************************************************************************/
+
+    	/**
+    	 * @Route("/json_cars")
+    	 * @Method("POST")
+    	 */
+    	public function getJSONTransfersAction(){
+
+    		// Search database for all transfers
+
+    		$em = $this->getDoctrine()->getManager();
+    		$transfers = $em->getRepository('FahrzeugdatenblattBundle:Transferfahrten')
+    			->findAll();
+
+    		// Generate JSON Structure
+    		$jsonData = [];
+
+    		foreach($transfers as $transfer){
+    			$date = $transfer->getCreatedAt();
+    			$start = $transfer->getStartDestination();
+    			$ziel = $transfer->getFinishDestination();
+    			$fahrzeugMarke = $transfer->getFahrzeuge()->getFahrzeugMarke();
+    			$fahrzeugID = $transfer->getFahrzeuge()->getID();
+    			$jsonData[] = [
+    				'start' => $start,
+    				'ziel' => $ziel,
+    				'fahrzeugMarke' => $fahrzeugMarke,
+    				'fahrzeugID' => $fahrzeugID,
+    				'datum' => $date
+    			];
+    		}
+
+    		return New Response(json_encode($jsonData));
+    	}
+
+
+     /************************************************************************************************************************
+     *
+     * API Endpoint Filtered Transfer Test
+     *
+     ***********************************************************************************************************************/
+
+    	/**
+    	 * @Route("/json_transfers_filtered")
+    	 * @Method("POST")
+    	 */
+    	public function getJSONTransfersFilteredAction(){
+
+    		$name = $_POST['name'];
+    		//dump($name);die;
+    		// Search database for all transfers
+
+    		$em = $this->getDoctrine()->getManager();
+    		$transfers = $em->getRepository('FahrzeugdatenblattBundle:Transferfahrten')
+    			->findBy(['startDestination' => $name]);
+
+    		// Generate JSON Structure
+    		$jsonData = [];
+
+    		foreach($transfers as $transfer){
+    			$date = $transfer->getCreatedAt();
+    			$start = $transfer->getStartDestination();
+    			$ziel = $transfer->getFinishDestination();
+    			$fahrzeugMarke = $transfer->getFahrzeuge()->getFahrzeugMarke();
+    			$fahrzeugID = $transfer->getFahrzeuge()->getID();
+    			$jsonData[] = [
+    				'start' => $start,
+    				'ziel' => $ziel,
+    				'fahrzeugMarke' => $fahrzeugMarke,
+    				'fahrzeugID' => $fahrzeugID,
+    				'datum' => $date
+    			];
+    		}
+
+    		return New Response(json_encode($jsonData));
+    	}
+
+    	/************************************************************************************************************************
+    	 *
+    	 * API Endpoint Filtered Transfer Test GET
+    	 *
+    	 ***********************************************************************************************************************/
+
+    	/**
+    	 * @Route("/json_transfers_getfiltered")
+    	 * @Method("GET")
+    	 */
+    	public function getJSONTransfersFilteredGetAction(){
+
+    		//$name = $_POST['name'];
+    		//dump($name);die;
+    		// Search database for all transfers
+
+    		$em = $this->getDoctrine()->getManager();
+    		$transfers = $em->getRepository('FahrzeugdatenblattBundle:Transferfahrten')
+    			->findBy(['startDestination' => 'Moers']);
+
+    		// Generate JSON Structure
+    		$jsonData = [];
+
+    		foreach($transfers as $transfer){
+    			$date = $transfer->getCreatedAt();
+    			$start = $transfer->getStartDestination();
+    			$ziel = $transfer->getFinishDestination();
+    			$fahrzeugMarke = $transfer->getFahrzeuge()->getFahrzeugMarke();
+    			$fahrzeugID = $transfer->getFahrzeuge()->getID();
+    			$jsonData[] = [
+    				'start' => $start,
+    				'ziel' => $ziel,
+    				'fahrzeugMarke' => $fahrzeugMarke,
+    				'fahrzeugID' => $fahrzeugID,
+    				'datum' => $date
+    			];
+    		}
+
+    		return New Response(json_encode($jsonData));
+    	}
+
+}
