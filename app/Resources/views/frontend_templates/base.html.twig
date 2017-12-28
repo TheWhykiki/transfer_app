@@ -3,6 +3,12 @@
 {% block body %}
     <header id="header" class="container">
         Hier ein Header falls nötig
+        {% if is_granted('ROLE_USER') %} User
+
+        {% else %}
+
+            NIcht user
+        {% endif %}
     </header>
 
     <section id="mainContent" class="container">
