@@ -1,0 +1,369 @@
+<!-- Main Sidebar -->
+<div id="sidebar">
+    <!-- Wrapper for scrolling functionality -->
+    <div id="sidebar-scroll">
+        <!-- Sidebar Content -->
+        <div class="sidebar-content">
+            <!-- Brand -->
+            <a href="index.php" class="sidebar-brand">
+                <i class="gi gi-flash"></i><span class="sidebar-nav-mini-hide"><strong>Pro</strong>UI</span>
+            </a>
+            <!-- END Brand -->
+
+            <!-- Sidebar Navigation -->
+            <ul class="sidebar-nav">
+
+                <!-- <li>
+                    <a href="index.php"><i class="gi gi-stopwatch sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Dashboard</span></a>
+                </li>
+                <li>
+                    <a href="index2.php" class=" active"><i class="gi gi-leaf sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Dashboard 2</span></a>
+                </li> -->
+                {%  if is_granted('ROLE_USER') %}
+                <li>
+                    <a href="{{ path('fos_user_security_logout') }}">Logout</a>
+                </li>
+                {%  else %}
+                <li>
+                    <a href="{{ path('fos_user_security_login') }}">Login </a>
+                </li>
+                {%  endif %}
+                <li>
+                    <a href="#" class="sidebar-nav-menu open"><i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="gi gi-shopping_cart sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Verwaltung</span></a>
+                    {{ knp_menu_render('AppBundle:MenuBuilder:mainMenu') }}
+                </li>
+                <li class="sidebar-header">
+                    <span class="sidebar-header-options clearfix"><a href="javascript:void(0)" data-toggle="tooltip" title="" data-original-title="Quick Settings"><i class="gi gi-settings"></i></a><a href="javascript:void(0)" data-toggle="tooltip" title="" data-original-title="Create the most amazing pages with the widget kit!"><i class="gi gi-lightbulb"></i></a></span>
+                    <span class="sidebar-header-title">Widget Kit</span>
+                </li>
+                <li>
+                    <a href="page_widgets_stats.php"><i class="gi gi-charts sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Statistics</span></a>
+                </li>
+                <li>
+                    <a href="page_widgets_social.php"><i class="gi gi-share_alt sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Social</span></a>
+                </li>
+                <li>
+                    <a href="page_widgets_media.php"><i class="gi gi-film sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Media</span></a>
+                </li>
+                <li>
+                    <a href="page_widgets_links.php"><i class="gi gi-link sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Links</span></a>
+                </li>
+                <li class="sidebar-header">
+                    <span class="sidebar-header-options clearfix"><a href="javascript:void(0)" data-toggle="tooltip" title="" data-original-title="Quick Settings"><i class="gi gi-settings"></i></a></span>
+                    <span class="sidebar-header-title">Design Kit</span>
+                </li>
+                <li>
+                    <a href="#" class="sidebar-nav-menu"><i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="gi gi-certificate sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">User Interface</span></a>
+                    <ul>
+                        <li>
+                            <a href="page_ui_grid_blocks.php">Grid &amp; Blocks</a>
+                        </li>
+                        <li>
+                            <a href="page_ui_draggable_blocks.php">Draggable Blocks</a>
+                        </li>
+                        <li>
+                            <a href="page_ui_typography.php">Typography</a>
+                        </li>
+                        <li>
+                            <a href="page_ui_buttons_dropdowns.php">Buttons &amp; Dropdowns</a>
+                        </li>
+                        <li>
+                            <a href="page_ui_navigation_more.php">Navigation &amp; More</a>
+                        </li>
+                        <li>
+                            <a href="page_ui_horizontal_menu.php">Horizontal Menu</a>
+                        </li>
+                        <li>
+                            <a href="page_ui_progress_loading.php">Progress &amp; Loading</a>
+                        </li>
+                        <li>
+                            <a href="page_ui_preloader.php">Page Preloader</a>
+                        </li>
+                        <li>
+                            <a href="page_ui_color_themes.php">Color Themes</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="sidebar-nav-menu"><i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="gi gi-notes_2 sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Forms</span></a>
+                    <ul>
+                        <li>
+                            <a href="page_forms_general.php">General</a>
+                        </li>
+                        <li>
+                            <a href="page_forms_components.php">Components</a>
+                        </li>
+                        <li>
+                            <a href="page_forms_validation.php">Validation</a>
+                        </li>
+                        <li>
+                            <a href="page_forms_wizard.php">Wizard</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="sidebar-nav-menu"><i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="gi gi-table sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Tables</span></a>
+                    <ul>
+                        <li>
+                            <a href="page_tables_general.php">General</a>
+                        </li>
+                        <li>
+                            <a href="page_tables_responsive.php">Responsive</a>
+                        </li>
+                        <li>
+                            <a href="page_tables_datatables.php">Datatables</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="sidebar-nav-menu"><i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="gi gi-cup sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Icon Sets</span></a>
+                    <ul>
+                        <li>
+                            <a href="page_icons_fontawesome.php">Font Awesome</a>
+                        </li>
+                        <li>
+                            <a href="page_icons_glyphicons_pro.php">Glyphicons Pro</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="sidebar-nav-menu"><i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="gi gi-show_big_thumbnails sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Page Layouts</span></a>
+                    <ul>
+                        <li>
+                            <a href="page_layout_static.php">Static</a>
+                        </li>
+                        <li>
+                            <a href="page_layout_static_fixed_footer.php">Static + Fixed Footer</a>
+                        </li>
+                        <li>
+                            <a href="page_layout_fixed_top.php">Fixed Top Header</a>
+                        </li>
+                        <li>
+                            <a href="page_layout_fixed_top_footer.php">Fixed Top Header + Footer</a>
+                        </li>
+                        <li>
+                            <a href="page_layout_fixed_bottom.php">Fixed Bottom Header</a>
+                        </li>
+                        <li>
+                            <a href="page_layout_fixed_bottom_footer.php">Fixed Bottom Header + Footer</a>
+                        </li>
+                        <li>
+                            <a href="page_layout_static_main_sidebar_mini.php">Mini Main Sidebar</a>
+                        </li>
+                        <li>
+                            <a href="page_layout_static_main_sidebar_partial.php">Partial Main Sidebar</a>
+                        </li>
+                        <li>
+                            <a href="page_layout_static_main_sidebar_visible.php">Visible Main Sidebar</a>
+                        </li>
+                        <li>
+                            <a href="page_layout_static_alternative_sidebar_partial.php">Partial Alternative Sidebar</a>
+                        </li>
+                        <li>
+                            <a href="page_layout_static_alternative_sidebar_visible.php">Visible Alternative Sidebar</a>
+                        </li>
+                        <li>
+                            <a href="page_layout_static_no_sidebars.php">No Sidebars</a>
+                        </li>
+                        <li>
+                            <a href="page_layout_static_both_partial.php">Both Sidebars Partial</a>
+                        </li>
+                        <li>
+                            <a href="page_layout_static_animated.php">Animated Sidebar Transitions</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-header">
+                    <span class="sidebar-header-options clearfix"><a href="javascript:void(0)" data-toggle="tooltip" title="" data-original-title="Quick Settings"><i class="gi gi-settings"></i></a></span>
+                    <span class="sidebar-header-title">Develop Kit</span>
+                </li>
+                <li>
+                    <a href="#" class="sidebar-nav-menu"><i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="gi gi-brush sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Ready Pages</span></a>
+                    <ul>
+                        <li>
+                            <a href="#" class="sidebar-nav-submenu"><i class="fa fa-angle-left sidebar-nav-indicator"></i>Errors</a>
+                            <ul>
+                                <li>
+                                    <a href="page_ready_400.php">400</a>
+                                </li>
+                                <li>
+                                    <a href="page_ready_401.php">401</a>
+                                </li>
+                                <li>
+                                    <a href="page_ready_403.php">403</a>
+                                </li>
+                                <li>
+                                    <a href="page_ready_404.php">404</a>
+                                </li>
+                                <li>
+                                    <a href="page_ready_500.php">500</a>
+                                </li>
+                                <li>
+                                    <a href="page_ready_503.php">503</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="sidebar-nav-submenu"><i class="fa fa-angle-left sidebar-nav-indicator"></i>Get Started</a>
+                            <ul>
+                                <li>
+                                    <a href="page_ready_blank.php">Blank</a>
+                                </li>
+                                <li>
+                                    <a href="page_ready_blank_alt.php">Blank Alternative</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="page_ready_search_results.php">Search Results (4)</a>
+                        </li>
+                        <li>
+                            <a href="page_ready_article.php">Article</a>
+                        </li>
+                        <li>
+                            <a href="page_ready_user_profile.php">User Profile</a>
+                        </li>
+                        <li>
+                            <a href="page_ready_contacts.php">Contacts</a>
+                        </li>
+                        <li>
+                            <a href="#" class="sidebar-nav-submenu"><i class="fa fa-angle-left sidebar-nav-indicator"></i>e-Learning</a>
+                            <ul>
+                                <li>
+                                    <a href="page_ready_elearning_courses.php">Courses</a>
+                                </li>
+                                <li>
+                                    <a href="page_ready_elearning_course_lessons.php">Course - Lessons</a>
+                                </li>
+                                <li>
+                                    <a href="page_ready_elearning_course_lesson.php">Course - Lesson Page</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="sidebar-nav-submenu"><i class="fa fa-angle-left sidebar-nav-indicator"></i>Message Center</a>
+                            <ul>
+                                <li>
+                                    <a href="page_ready_inbox.php">Inbox</a>
+                                </li>
+                                <li>
+                                    <a href="page_ready_inbox_compose.php">Compose Message</a>
+                                </li>
+                                <li>
+                                    <a href="page_ready_inbox_message.php">View Message</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="page_ready_chat.php">Chat</a>
+                        </li>
+                        <li>
+                            <a href="page_ready_timeline.php">Timeline</a>
+                        </li>
+                        <li>
+                            <a href="page_ready_files.php">Files</a>
+                        </li>
+                        <li>
+                            <a href="page_ready_tickets.php">Tickets</a>
+                        </li>
+                        <li>
+                            <a href="page_ready_bug_tracker.php">Bug Tracker</a>
+                        </li>
+                        <li>
+                            <a href="page_ready_tasks.php">Tasks</a>
+                        </li>
+                        <li>
+                            <a href="page_ready_faq.php">FAQ</a>
+                        </li>
+                        <li>
+                            <a href="page_ready_pricing_tables.php">Pricing Tables</a>
+                        </li>
+                        <li>
+                            <a href="page_ready_invoice.php">Invoice</a>
+                        </li>
+                        <li>
+                            <a href="page_ready_forum.php">Forum (3)</a>
+                        </li>
+                        <li>
+                            <a href="page_ready_coming_soon.php">Coming Soon</a>
+                        </li>
+                        <li>
+                            <a href="#" class="sidebar-nav-submenu"><i class="fa fa-angle-left sidebar-nav-indicator"></i>Login, Register &amp; Lock</a>
+                            <ul>
+                                <li>
+                                    <a href="login.php">Login</a>
+                                </li>
+                                <li>
+                                    <a href="login_full.php">Login (Full Background)</a>
+                                </li>
+                                <li>
+                                    <a href="login_alt.php">Login 2</a>
+                                </li>
+                                <li>
+                                    <a href="login.php#reminder">Password Reminder</a>
+                                </li>
+                                <li>
+                                    <a href="login_alt.php#reminder">Password Reminder 2</a>
+                                </li>
+                                <li>
+                                    <a href="login.php#register">Register</a>
+                                </li>
+                                <li>
+                                    <a href="login_alt.php#register">Register 2</a>
+                                </li>
+                                <li>
+                                    <a href="page_ready_lock_screen.php">Lock Screen</a>
+                                </li>
+                                <li>
+                                    <a href="page_ready_lock_screen_alt.php">Lock Screen 2</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="sidebar-nav-menu"><i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="fa fa-wrench sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Components</span></a>
+                    <ul>
+                        <li>
+                            <a href="#" class="sidebar-nav-submenu"><i class="fa fa-angle-left sidebar-nav-indicator"></i>3 Level Menu</a>
+                            <ul>
+                                <li>
+                                    <a href="#">Link 1</a>
+                                </li>
+                                <li>
+                                    <a href="#">Link 2</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="page_comp_maps.php">Maps</a>
+                        </li>
+                        <li>
+                            <a href="page_comp_charts.php">Charts</a>
+                        </li>
+                        <li>
+                            <a href="page_comp_gallery.php">Gallery</a>
+                        </li>
+                        <li>
+                            <a href="page_comp_carousel.php">Carousel</a>
+                        </li>
+                        <li>
+                            <a href="page_comp_calendar.php">Calendar</a>
+                        </li>
+                        <li>
+                            <a href="page_comp_animations.php">CSS3 Animations</a>
+                        </li>
+                        <li>
+                            <a href="page_comp_syntax_highlighting.php">Syntax Highlighting</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- END Sidebar Navigation -->
+
+        </div>
+        <!-- END Sidebar Content -->
+    </div>
+    <!-- END Wrapper for scrolling functionality -->
+</div>
+<!-- END Main Sidebar -->

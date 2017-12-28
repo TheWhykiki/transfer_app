@@ -1,33 +1,61 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-    </head>
-    <body>
-        <div>
-            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-                <a href="{{ path('fos_user_security_logout') }}">
-                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                </a>
-            {% else %}
-                <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
-            {% endif %}
+
+{% include '@FOSUser/head.html.twig' %}
+<body>
+{% include '@FOSUser/template_header.html.twig' %}
+{% include '@FOSUser/template_sidebar.html.twig' %}
+
+<!-- Main Container -->
+<div id="main-container">
+
+
+    <div id="page-content" style="min-height: 1189px;">
+
+
+        <!-- Dashboard 2 Header -->
+        <div class="content-header">
+            <ul class="nav-horizontal text-center">
+                <li class="active">
+                    <a href="javascript:void(0)"><i class="fa fa-home"></i> Home</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)"><i class="gi gi-train"></i> Sales</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)"><i class="gi gi-briefcase"></i> Projects</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)"><i class="gi gi-video_hd"></i> Movies</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)"><i class="gi gi-music"></i> Music</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)"><i class="fa fa-cubes"></i> Apps</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)"><i class="fa fa-pencil"></i> Profile</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)"><i class="fa fa-cogs"></i> Settings</a>
+                </li>
+            </ul>
+        </div>
+        <!-- END Dashboard 2 Header -->
+
+        <!-- Dashboard 2 Content -->
+        <div class="row">
+            <div class="col-md-12">
+                {% block fos_user_content %}
+                {% endblock fos_user_content %}
+            </div>
         </div>
 
-        {% if app.request.hasPreviousSession %}
-            {% for type, messages in app.session.flashbag.all() %}
-                {% for message in messages %}
-                    <div class="flash-{{ type }}">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endfor %}
-        {% endif %}
+        <!-- END Dashboard 2 Content -->
+    </div>
+    <!-- END Page Content -->
+</div>
 
-        <div>
-            {% block fos_user_content %}
-            {% endblock fos_user_content %}
-        </div>
-    </body>
-</html>
+{% include '@FOSUser/template_footer.html.twig' %}
+{% include '@FOSUser/footer.html.twig' %}
+
+
