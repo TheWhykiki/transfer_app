@@ -71,18 +71,6 @@ swiftmailer:
     password: '%mailer_password%'
     spool: { type: memory }
 
-# app/config/config.yml
-easy_admin:
-    entities:
-        Fahrzeugdatenblatt:
-          controller: FahrzeugdatenblattBundle\Controller\AdminController
-          class: FahrzeugdatenblattBundle\Entity\Fahrzeugdatenblatt
-
-
-        Testkiki:
-          controller: FahrzeugdatenblattBundle\Controller\AdminController
-          class: FahrzeugdatenblattBundle\Entity\Testkiki
-
 knp_paginator:
     page_range: 10                       # number of links showed in the pagination menu (e.g: you have 10 pages, a page_range of 3, on the 5th page you'll see links to page 4, 5, 6)
     default_options:

@@ -44,8 +44,3 @@ services:
 
     FahrzeugdatenblattBundle\Controller\FrontendController:
         public: true
-
-
-    AppBundle\Doctrine\HashPasswordListener:
-      tags:
-          - { name: doctrine.event_subscriber}
