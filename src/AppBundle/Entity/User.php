@@ -185,22 +185,5 @@ class User extends BaseUser
 		$this->phone = $phone;
 	}
 
-	public function getUsername()
-	{
-		return $this->email;
-	}
-
-	public function getSalt()
-	{
-		// TODO: Implement getSalt() method.
-	}
-
-	public function eraseCredentials()
-	{
-		$this->plainPassword = null;
-	}
-
-
-
 
 }
