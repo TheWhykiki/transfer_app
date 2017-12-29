@@ -1,0 +1,42 @@
+{% extends 'frontend_templates/base.html.twig' %}
+
+{% block body %}
+    <header id="header" class="container">
+        Hier ein Header falls nötig
+        {% if is_granted('ROLE_USER') %} User
+
+        {% else %}
+
+            NIcht user
+        {% endif %}
+    </header>
+
+    <section id="mainContent" class="container">
+
+        <div class="row">
+            <div class="col-md-12">
+                <form id="notSend">
+                    <button type="submit">Send</button>
+                    <input type="text" id="username" name="username" value="" class="inputbox text" size="0" maxlength="255" />
+                    <input type="text" id="password" name="password" value="" class="inputbox text" size="0" maxlength="255" />
+
+                    <div class="kikiTestbutton">Koko</div>
+                    <div id="testausgabe">
+                    {% for item in daten %}
+                        {{ item }}
+                    {%  endfor  %}
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+    </section>
+
+    {% include 'frontend_templates/footer_checkout.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}
+

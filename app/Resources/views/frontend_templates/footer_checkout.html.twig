@@ -1,0 +1,44 @@
+{% block javascripts %}
+    <script src="{{ asset('js/vendor/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/vendor/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/wow.min.js') }}"></script>
+    <script>
+        $( document ).ready(function() {
+
+
+            new WOW().init();
+
+
+
+            var currentTransferID = '';
+            // Ajax Call1
+            $("#notSend").submit(function(e){
+
+
+                var username =  $('#username').val();
+                var password =  $('#password').val();
+
+                $.ajax({
+                    url: "ajax_login_action",
+                    type: "POST",
+                    data: { username: username, password: password },
+                    dataType:"JSON",
+                    success: function (data) {
+
+                    },
+                    error: function () {
+                        alert('error');
+                    }
+                });
+
+                e.preventDefault();
+
+            });
+
+
+
+
+        });
+    </script>
+{% endblock %}
+
