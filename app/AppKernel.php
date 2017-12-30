@@ -25,6 +25,8 @@ class AppKernel extends Kernel
 	        new Knp\Bundle\MenuBundle\KnpMenuBundle(),
 	        new Vich\UploaderBundle\VichUploaderBundle(),
 	        new FOS\UserBundle\FOSUserBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

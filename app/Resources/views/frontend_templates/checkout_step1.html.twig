@@ -2,16 +2,16 @@
 
 {% block body %}
     <header id="header" class="container">
-        Hier ein Header falls nötig
-        {% if is_granted('ROLE_USER') %} User
 
-        {% else %}
-
-            NIcht user
-        {% endif %}
     </header>
 
     <section id="mainContent" class="container">
+        Hier ein Header falls nötig
+        {% if is_granted('ROLE_USER') %}
+        Hi {{ app.user.username }}
+
+        {{ id }}
+        {% else %}
 
         <div class="row">
             <div class="col-md-12">
@@ -22,12 +22,18 @@
 
                     <div class="kikiTestbutton">Koko</div>
                     <div id="testausgabe">
-                    {% for item in daten %}
-                        {{ item }}
-                    {%  endfor  %}
+                        {% for item in id %}
+                            {{ item }}
+                        {%  endfor  %}
+
+
+
                     </div>
                 </form>
             </div>
+
+        {% endif %}
+
         </div>
 
 

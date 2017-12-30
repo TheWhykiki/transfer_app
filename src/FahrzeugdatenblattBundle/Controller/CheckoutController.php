@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 class CheckoutController extends Controller
@@ -30,12 +31,12 @@ class CheckoutController extends Controller
 
 	/**
 	 *
-	 * @Route("/checkout", name="checkout")
+	 * @Route("/checkout", options={"expose"=true}, name="checkout")
 	 */
 
-	public function checkoutAction(Request $request){
-
-		//$username = $request->request->get('username');
+	public function checkoutAction(Request $request, UserInterface $user){
+        $userId = $user->getId();
+        //$username = $request->request->get('username');
 
 		//$username = "adminuse2r";
 		//$password = "test2";
@@ -45,7 +46,8 @@ class CheckoutController extends Controller
 		//dump($userLoggedState);die;
 
 		return $this->render('frontend_templates/checkout_step1.html.twig',[
-			'daten' => $userLoggedState
+			'daten' => $userLoggedState,
+            'id' => $userId
 		]);
 
 	}

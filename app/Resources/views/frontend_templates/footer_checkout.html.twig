@@ -2,6 +2,8 @@
     <script src="{{ asset('js/vendor/jquery.min.js') }}"></script>
     <script src="{{ asset('js/vendor/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/wow.min.js') }}"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
     <script>
         $( document ).ready(function() {
 
@@ -24,7 +26,7 @@
                     data: { username: username, password: password },
                     dataType:"JSON",
                     success: function (data) {
-
+                        window.document.location = Routing.generate('checkout');
                     },
                     error: function () {
                         alert('error');
